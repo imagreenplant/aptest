@@ -1,6 +1,7 @@
 var casper = require('casper').create();
-
 var utils = require('utils');
+
+
 var urls = [
         "http://www.mtv.com/artists/",
         "http://www.mtv-d.mtvi.com/artists/",
@@ -75,10 +76,47 @@ casper.on('resource.requested', function(resource) {
 
     if ( isOmnitureURL(resource.url) ) {
         this.echo(this.current_event + "---------" + this.getCurrentUrl() + "-------------", 'COMMENT');
-        this.test.assert( getParameterByName(resource.url, "c28") === "artist page", "C28 is equal to 'artist page'");
-        this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "C1 is equal to 'Lady Gaga'");
-        //this.test.assert( getParameterByName(resource.url, "c7") === "claimed", "c7 is set to 'claimed'");
-        this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/photos/7553542", "pageName is equal to photos page");
+
+        if (this.current_event === "artist-profile:load") {
+            this.test.comment(this.current_event);
+            this.test.assert( getParameterByName(resource.url, "c28") === "artist page", "reported c28 is equal to 'artist page'");
+            this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
+            this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
+            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga", "reported pageName is equal to profile page");
+            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+            this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
+            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+        }
+        if (this.current_event === "biography-overlay:click") {
+            this.test.comment(this.current_event);   
+            this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
+            this.test.assert( getParameterByName(resource.url, "c28") === "bio page", "reported c28 is equal to 'bio page'");
+            this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
+            this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
+            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/biography/", "reported pageName is equal to biography page");
+            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+        }
+        if (this.current_event === "photo-overlay:click") {
+            this.test.comment(this.current_event);
+            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/photos/7553542", "reported pageName is equal to photos page");
+            this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
+            this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
+            this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
+            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+            this.test.assert( getParameterByName(resource.url, "c28") === "photo page", "reported c28 is equal to 'photo page'");
+        }
+        if (this.current_event === "album-overlay:click") {
+            this.test.comment(this.current_event);
+            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/discography/2766686/", "reported pageName is equal to photos page");
+            this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
+            this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
+            this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
+            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+            this.test.assert( getParameterByName(resource.url, "c28") === "album page", "reported c28 is equal to 'album page'");
+        }
     }
 });
 
@@ -87,9 +125,12 @@ casper.test.comment('Testing reporting on Artist Profile page');
 casper.current_event = "artist-profile:load";
 
 casper.start('http://www.mtv.com/artists/lady-gaga', function() {
-    this.viewport(1024,768);
+    //this.viewport(1024,768);
     this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
 });
+
+//Moving page to the photo carousel portion of the page
+//casper.thenOpen('http://www.mtv.com/artists/lady-gaga##profile_detail_bio_box', function() {});
 
 casper.then(function() {
     this.test.comment("Opening biography overlay");
