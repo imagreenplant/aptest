@@ -2,37 +2,16 @@ var casper = require('casper').create();
 var utils = require('utils');
 
 
-var urls = [
-        "http://www.mtv.com/artists/",
-        "http://www.mtv-d.mtvi.com/artists/",
-        "http://www.mtv-q.mtvi.com/artists/"
-]
+// var urls = [
+//         "http://www.mtv.com/artists/",
+//         "http://www.mtv-d.mtvi.com/artists/",
+//         "http://www.mtv-q.mtvi.com/artists/"
+// ]
 
-// Maps reporting parameters to reporting actions
-reporting_map = {
-    "artist-profile:load":{
-        "c1":"Lady Gaga",
-        //"c7":"claimed",
-        "c28":"artist page",
-    },
-    "biography-overlay:click":{
-        "c1":"Lady Gaga",
-        "v49":"artists", 
-    },
-    "photo-overlay:click":{
-        "c1":"Lady Gaga",
-        "v49":"artists", 
-    },
-    "album-overlay:click":{
-        "c1":"Lady Gaga",
-        "v49":"artists", 
-    },
-}
-
-//if(isInArray(foo,["bar","foobar","foo"])){ (...) }
-function isInArray(val,arr) { 
-    return arr.indexOf(val)>=0; 
-} 
+// //if(isInArray(foo,["bar","foobar","foo"])){ (...) }
+// function isInArray(val,arr) { 
+//     return arr.indexOf(val)>=0; 
+// } 
 
 function getParameterByName(url, name) {
     var match = RegExp('[?&]' + name + '=([^&]*)')
@@ -45,7 +24,7 @@ function getParameterByName(url, name) {
 function isOmnitureURL(url) {
 
     if ( url.indexOf("viamtv.112.2o7.net") > -1 ) {
-        //console.log("PASSED domain test:" + url);
+        console.log("PASSED domain test:" + url);
         // Looks for pccr parameter to filter out. See this link for more info.
         // http://blogs.adobe.com/digitalmarketing/analytics/under-the-hood-with-visits-and-visitors/
         return decodeURIComponent(url).indexOf("&pccr=true") > -1 ? false : true;
@@ -55,20 +34,6 @@ function isOmnitureURL(url) {
         return false
     }
 }
-
-
-// function testReportingCall(url, current_event) {
-//     for (var key in validation_messages) {
-//        if (validation_messages.hasOwnProperty(key)) {
-//          var obj = validation_messages[key];
-//          for (var prop in obj) {
-//            if (obj.hasOwnProperty(prop)) {
-//              alert(prop + " = " + obj[prop]);
-//            }
-//          }
-//        }
-//     }
-// }
 
 // Trigger on requested resources.  Here, the resource is the Omniture gif.
 casper.on('resource.requested', function(resource) {
@@ -135,7 +100,7 @@ casper.start('http://www.mtv.com/artists/lady-gaga', function() {
 casper.then(function() {
     this.test.comment("Opening biography overlay");
     this.current_event = "biography-overlay:click";
-    this.click("#profile_detail_bio_box");
+    this.click("#profile_detail_bio");
 });
 
 //Moving page to the photo carousel portion of the page
