@@ -82,6 +82,36 @@ casper.on('resource.requested', function(resource) {
             this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
             this.test.assert( getParameterByName(resource.url, "c28") === "album page", "reported c28 is equal to 'album page'");
         }
+        if (this.current_event === "similar-artists:load") {
+            this.test.comment(this.current_event);
+            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/related-artists/", "reported pageName is equal to related-artists page");
+            this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
+            this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
+            this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
+            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+            this.test.assert( getParameterByName(resource.url, "c28") === "related artist page", "reported c28 is equal to 'related artists page'");
+        }
+        if (this.current_event === "influencer-artists:load") {
+            this.test.comment(this.current_event);
+            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/related-artists/", "reported pageName is equal to related-artists page");
+            this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
+            this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
+            this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
+            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+            this.test.assert( getParameterByName(resource.url, "c28") === "related artist page", "reported c28 is equal to 'related artists page'");
+        }
+        if (this.current_event === "follower-artists:load") {
+            this.test.comment(this.current_event);
+            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/related-artists/", "reported pageName is equal to related-artists page");
+            this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
+            this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
+            this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
+            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+            this.test.assert( getParameterByName(resource.url, "c28") === "related artist page", "reported c28 is equal to 'related artists page'");
+        }
     }
 });
 
@@ -119,6 +149,36 @@ casper.then(function() {
     this.test.comment("Opening album overlay", "COMMENT")
     this.current_event = "album-overlay:click";
     this.click('#profile_albums .carousel-item-link-layer a');
+});
+
+//Testing similar artists page
+casper.then(function() {
+    this.test.comment("Opening similar artists page", "COMMENT")
+    this.current_event = "similar-artists:load";
+});
+
+casper.thenOpen('http://www.mtv.com/artists/lady-gaga/related-artists/?filter=similar', function() {
+        this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
+});
+
+//Testing following artists page
+casper.then(function() {
+    this.test.comment("Opening following artists page", "COMMENT")
+    this.current_event = "follower-artists:load";
+});
+
+casper.thenOpen('http://www.mtv.com/artists/lady-gaga/related-artists/?filter=followers', function() {
+        this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
+});
+
+//Testing influencing artists page
+casper.then(function() {
+    this.test.comment("Opening influencing artists page", "COMMENT")
+    this.current_event = "influencer-artists:load";
+});
+
+casper.thenOpen('http://www.mtv.com/artists/lady-gaga/related-artists/?filter=influencedBy', function() {
+        this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
 });
 
 casper.run();
