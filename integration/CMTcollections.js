@@ -11,12 +11,14 @@ var links = [
     '/artists/collections/Unplugged/896716'
 ];
 
+//Tests for cmt domain, that the link was properly redirected.
 var cmtpattern = new RegExp ('^http://www.cmt-q.mtvi.com/artists/');
 
 casper.start().each(links, function(self, link) {
     self.thenOpen(mtv_q_base_domain + link, function() {
         this.echo(this.getTitle());
-        //this.test.assertTitle('Google','has google title');
+        // Test to make sure a CMT owned collection, when linked under mtv.com domain, 
+        // will redirect to be under a CMT domain.
         this.test.assertUrlMatch(cmtpattern, 'Domain successfully served from CMT. MLAP-1387');
     });
 });
