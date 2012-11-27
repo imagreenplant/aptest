@@ -120,7 +120,7 @@ casper.test.comment('Testing reporting on Artist Profile page');
 casper.current_event = "artist-profile:load";
 
 casper.start('http://www.mtv.com/artists/lady-gaga', function() {
-    //this.viewport(1024,768);
+    this.viewport(1024,7680);
     this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
 });
 
@@ -134,9 +134,10 @@ casper.then(function() {
 });
 
 //Moving page to the photo carousel portion of the page
-casper.thenOpen('http://www.mtv.com/artists/lady-gaga#profile_artist_images', function() {});
+casper.thenOpen('#profile_artist_images', function() {});
 
 casper.then(function() {
+    // this.waitForSelector('#profile_artist_images .carousel-item-link-layer a', function() {});
     this.test.comment("Opening photo overlay", "COMMENT")
     this.current_event = "photo-overlay:click";
     this.click('#profile_artist_images .carousel-item-link-layer a');
