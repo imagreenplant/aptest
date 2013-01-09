@@ -159,7 +159,7 @@ casper.current_event = "artist-profile:load";
 
 casper.start('http://www.mtv.com/artists/lady-gaga', function() {
     this.wait(2000, function() {
-    	takePicture(this);
+    	takePicture(this);  // take picture of artist profile
     });
 });
 
@@ -171,9 +171,8 @@ casper.then(function() {
 		this.click("#profile_detail_bio");
 	});
 });
-
 casper.then(function() {
-    takePicture(this);
+    takePicture(this);  //take picture of bio overlay
 });
 
 // Closing Bio Overlay  -- Is this step needed?
@@ -193,10 +192,9 @@ casper.then(function() {
 		this.click('#profile_artist_images .carousel-item-link-layer a');
 	});
 });
-
 casper.then(function() {
     this.wait(1000,function() {
-        takePicture(this);    
+        takePicture(this);    //take picture of photo overlay
     })
 });
 
@@ -209,10 +207,9 @@ casper.then(function() {
 	});
 
 });
-
 casper.then(function() {
     this.wait(1000,function() {
-        takePicture(this);
+        takePicture(this);   //take picture of album overlay   
     })
 });
 
@@ -220,30 +217,33 @@ casper.then(function() {
 casper.then(function() {
     this.test.comment("Opening similar artists page", "COMMENT")
     this.current_event = "similar-artists:load";
+    this.thenOpen('http://www.mtv.com/artists/lady-gaga/related-artists/?filter=similar', function() {
+        this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
+        takePicture(this);
+    });
 });
 
-casper.thenOpen('http://www.mtv.com/artists/lady-gaga/related-artists/?filter=similar', function() {
-        this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
-});
+
 
 //Testing following artists page
 casper.then(function() {
     this.test.comment("Opening following artists page", "COMMENT")
     this.current_event = "follower-artists:load";
-});
-
-casper.thenOpen('http://www.mtv.com/artists/lady-gaga/related-artists/?filter=followers', function() {
+    this.thenOpen('http://www.mtv.com/artists/lady-gaga/related-artists/?filter=followers', function() {
         this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
+        takePicture(this);
+    });
 });
 
 //Testing influencing artists page
 casper.then(function() {
     this.test.comment("Opening influencing artists page", "COMMENT")
     this.current_event = "influencer-artists:load";
+    this.thenOpen('http://www.mtv.com/artists/lady-gaga/related-artists/?filter=influencedBy', function() {
+        this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
+        takePicture(this);
+    });
 });
 
-casper.thenOpen('http://www.mtv.com/artists/lady-gaga/related-artists/?filter=influencedBy', function() {
-        this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
-});
 
 casper.run();
