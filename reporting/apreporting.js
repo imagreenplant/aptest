@@ -11,6 +11,7 @@ var DEBUG = 0;
 // DEBUG Level 1 takes pictures 
 // DEBUG Level 2 prints some urls
 // DEBUG Level 3 prints more data
+// DEBUG
 
 // var urls = [
 //         "http://www.mtv.com/artists/",
@@ -27,7 +28,7 @@ var DEBUG = 0;
 function getParameterByName(url, name) {
     var match = RegExp('[?&]' + name + '=([^&]*)')
                     .exec( url );
-    if (DEBUG > 2) { console.log(match + "Logged");}
+    if (DEBUG > 1) { console.log(match + "Logged");}
     return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
 }
 
@@ -61,7 +62,7 @@ function takePicture(cobject) {
 
 // Trigger on requested resources.  Here, the resource is the Omniture gif.
 casper.on('resource.requested', function(resource) {
-    if (DEBUG > 1) { this.echo("DEBUG " + resource.url, 'INFO'); }
+    if (DEBUG > 2) { this.echo("DEBUG " + resource.url, 'INFO'); }
 
     if ( isOmnitureURL(resource.url) ) {
         this.echo(this.current_event + "---------" + this.getCurrentUrl() + "-------------", 'COMMENT');
@@ -149,6 +150,27 @@ casper.on('resource.requested', function(resource) {
             this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
             this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
             this.test.assert( getParameterByName(resource.url, "c28") === "related artist page", "reported c28 is equal to 'related artists page'");
+        }
+        if (this.current_event === "genre:load") {
+            this.test.comment(this.current_event);
+            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/genre/pop/", "reported pageName is equal to the pop page");
+            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+            this.test.assert( getParameterByName(resource.url, "c28") === "genre page", "reported c28 is equal to 'genre page'");
+        }
+        if (this.current_event === "location:load") {
+            this.test.comment(this.current_event);
+            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/location/New+York+City,+NY/", "reported pageName is expected");
+            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+            this.test.assert( getParameterByName(resource.url, "c28") === "location page", "reported c28 is equal to 'location page'");
+        }
+        if (this.current_event === "startyear:load") {
+            this.test.comment(this.current_event);
+            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/startyear/2005/", "reported pageName is expected");
+            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+            this.test.assert( getParameterByName(resource.url, "c28") === "start year page", "reported c28 is equal to 'start year page'");
         }
     }
 });
@@ -240,6 +262,36 @@ casper.then(function() {
     this.test.comment("Opening influencing artists page", "COMMENT")
     this.current_event = "influencer-artists:load";
     this.thenOpen('http://www.mtv.com/artists/lady-gaga/related-artists/?filter=influencedBy', function() {
+        this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
+        takePicture(this);
+    });
+});
+
+//Testing genre page
+casper.then(function() {
+    this.test.comment("Opening genre page", "COMMENT")
+    this.current_event = "location:load";
+    this.thenOpen('http://www.mtv.com/artists/location/New+York+City%2C+NY/#from-lady-gaga', function() {
+        this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
+        takePicture(this);
+    });
+});
+
+//Testing location page
+casper.then(function() {
+    this.test.comment("Opening location page", "COMMENT")
+    this.current_event = "genre:load";
+    this.thenOpen('http://www.mtv.com/artists/genre/pop/#from-lady-gaga', function() {
+        this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
+        takePicture(this);
+    });
+});
+
+//Testing starting year page
+casper.then(function() {
+    this.test.comment("Opening starting year page", "COMMENT")
+    this.current_event = "startyear:load";
+    this.thenOpen('http://www.mtv.com/artists/startyear/2005/#from-lady-gaga', function() {
         this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
         takePicture(this);
     });
