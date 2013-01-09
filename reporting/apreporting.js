@@ -11,7 +11,6 @@ var DEBUG = 0;
 // DEBUG Level 1 takes pictures 
 // DEBUG Level 2 prints some urls
 // DEBUG Level 3 prints more data
-// DEBUG
 
 // var urls = [
 //         "http://www.mtv.com/artists/",
