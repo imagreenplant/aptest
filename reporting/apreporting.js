@@ -171,6 +171,66 @@ casper.on('resource.requested', function(resource) {
             this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
             this.test.assert( getParameterByName(resource.url, "c28") === "start year page", "reported c28 is equal to 'start year page'");
         }
+        if (this.current_event === "music-grid:load") {
+            this.test.comment(this.current_event);
+            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/music/", "reported pageName is expected");
+            this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
+            this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
+            this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
+            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+            this.test.assert( getParameterByName(resource.url, "c28") === "music page", "reported c28 is equal to 'music page', actual="+getParameterByName(resource.url, "c28"));
+        }
+        if (this.current_event === "updates-grid:load") {
+            this.test.comment(this.current_event);
+            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/updates/", "reported pageName is expected");
+            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+            this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
+            this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
+            this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
+            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+            this.test.assert( getParameterByName(resource.url, "c28") === "updates page", "reported c28 is equal to 'updates page', actual="+getParameterByName(resource.url, "c28"));
+        }
+        if (this.current_event === "interviews-grid:load") {
+            this.test.comment(this.current_event);
+            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/video-interviews/", "reported pageName is expected");
+            this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
+            this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
+            this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
+            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+            this.test.assert( getParameterByName(resource.url, "c28") === "interviews page", "reported c28 is equal to 'interviews page', actual="+getParameterByName(resource.url, "c28"));
+        }
+        if (this.current_event === "photos-grid:load") {
+            this.test.comment(this.current_event);
+            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/photos/", "reported pageName is expected");
+            this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
+            this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
+            this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
+            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+            this.test.assert( getParameterByName(resource.url, "c28") === "photos page", "reported c28 is equal to 'photos page', actual="+getParameterByName(resource.url, "c28"));
+        }
+        if (this.current_event === "news-grid:load:load") {
+            this.test.comment(this.current_event);
+            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/news/", "reported pageName is expected");
+            this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
+            this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
+            this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
+            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+            this.test.assert( getParameterByName(resource.url, "c28") === "news page", "reported c28 is equal to 'news page', actual="+getParameterByName(resource.url, "c28"));
+        }
+        if (this.current_event === "discography-grid:load") {
+            this.test.comment(this.current_event);
+            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/discography/", "reported pageName is expected");
+            this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
+            this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
+            this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
+            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+            this.test.assert( getParameterByName(resource.url, "c28") === "discography page", "reported c28 is equal to 'discography page', actual="+getParameterByName(resource.url, "c28"));
+        }
     }
 });
 
@@ -291,6 +351,66 @@ casper.then(function() {
     this.test.comment("Opening starting year page", "COMMENT")
     this.current_event = "startyear:load";
     this.thenOpen('http://www.mtv.com/artists/startyear/2005/#from-lady-gaga', function() {
+        this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
+        takePicture(this);
+    });
+});
+
+//Testing music grid page
+casper.then(function() {
+    this.test.comment("Opening music page", "COMMENT")
+    this.current_event = "music-grid:load";
+    this.thenOpen('http://www.mtv.com/artists/lady-gaga/music/', function() {
+        this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
+        takePicture(this);
+    });
+});
+
+//Testing updates grid page
+casper.then(function() {
+    this.test.comment("Opening updates grid page", "COMMENT")
+    this.current_event = "updates-grid:load";
+    this.thenOpen('http://www.mtv.com/artists/lady-gaga/updates/', function() {
+        this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
+        takePicture(this);
+    });
+});
+
+//Testing news and interviews grid page
+casper.then(function() {
+    this.test.comment("Opening news and interviews grid page", "COMMENT")
+    this.current_event = "interviews-grid:load";
+    this.thenOpen('http://www.mtv.com/artists/lady-gaga/video-interviews/', function() {
+        this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
+        takePicture(this);
+    });
+});
+
+//Testing photos grid page
+casper.then(function() {
+    this.test.comment("Opening photos grid page", "COMMENT")
+    this.current_event = "photos-grid:load";
+    this.thenOpen('http://www.mtv.com/artists/lady-gaga/photos/', function() {
+        this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
+        takePicture(this);
+    });
+});
+
+//Testing news grid page
+casper.then(function() {
+    this.test.comment("Opening news grid page", "COMMENT")
+    this.current_event = "news-grid:load";
+    this.thenOpen('http://www.mtv.com/artists/lady-gaga/news/', function() {
+        this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
+        takePicture(this);
+    });
+});
+
+//Testing discography grid page
+casper.then(function() {
+    this.test.comment("Opening discography grid page", "COMMENT")
+    this.current_event = "discography-grid:load";
+    this.thenOpen('http://www.mtv.com/artists/lady-gaga/discography/', function() {
         this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
         takePicture(this);
     });
