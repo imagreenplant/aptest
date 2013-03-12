@@ -18,7 +18,6 @@ var brands = ["mtv", "vh1", "cmt", "wrong", ""];
 casper.start().each(links, function(self,link) {
     self.each(brands, function(self,brand) {
     	this.then( function() {
-    		this.echo("opening ----"+link+"#"+brand);
     		this.clear();
     	});
 
@@ -78,5 +77,7 @@ casper.start().each(links, function(self,link) {
     });
 });
 
-casper.run();
+casper.run(function(){
+	this.test.done();
+});
 

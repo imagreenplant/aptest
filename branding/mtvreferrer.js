@@ -1,4 +1,4 @@
-var fakeReferrer = "http://cmt.com";
+var fakeReferrer = "http://mtv.com";
 var targetURL = 'http://www.mtv-d.mtvi.com/artists/';
  
 var utils = require('utils');
@@ -28,8 +28,8 @@ casper.then(function(){
 
 casper.then(function() {
 	this.echo(this.getCurrentUrl());
-	this.test.assertExists('a#logo.cmt',"Found 'cmt' class on logo element");
-	this.test.assertNotExists('a#logo.mtv',"Did NOT find 'mtv' class on logo element");
+	this.test.assertExists('a#logo.mtv',"Found 'mtv' class on logo element");
+	this.test.assertNotExists('a#logo.cmt',"Did NOT find 'cmt' class on logo element");
 	this.test.assertNotExists('a#logo.vh1',"Did NOT find 'vh1' class on logo element");
 });
 
