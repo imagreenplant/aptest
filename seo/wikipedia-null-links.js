@@ -1,4 +1,4 @@
-var base_domain = 'http://www.mtv-d.mtvi.com/';
+var base_domain = casper.environment.mtv;
 var test_urls = ['artists/ake-zetterstrom/', 'artists/ace-ventura/'];
 var negative_test_urls = ['artists/lady-gaga/', 'artists/rihanna/', 'artists/band-of-horses/'];
 var links = [];
