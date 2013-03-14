@@ -1,7 +1,9 @@
+
+
 mtv_q_base_domain = 'http://www.cmt.com'
 
 var fs = require('fs');
-var artists_file = fs.read('CMTartists.txt');
+var artists_file = fs.read('./integration/CMT/CMTartists.txt');
 var artists = artists_file.split("\n");
 
 // console.log(artists[0]);
@@ -10,7 +12,7 @@ var artists = artists_file.split("\n");
 var cmtpattern = new RegExp ('^http://www.(cmt|mtv).com/artists/');
 
 casper.start().each(artists, function(self, artist) {
-    clink = mtv_q_base_domain + "/artists/az/" + artist + "/artist.jhtml";
+    clink = self.environment.cmt + "artists/az/" + artist + "/artist.jhtml";
     self.thenOpen(clink, function() {
         this.echo("Requested link: " + clink)
         this.echo(this.getTitle());
@@ -22,6 +24,13 @@ casper.start().each(artists, function(self, artist) {
     });
 });
 
-casper.run(function() {
-    this.test.renderResults(true);
-});
+if (casper.environment.env !== "live") {
+    casper.echo("This test file is not meant to be used with DEV or Q environments.", "INFO");
+    casper.test.done();
+}
+else {
+    casper.run(function() {
+        this.test.renderResults(true);
+        this.test.done();
+    });
+}
