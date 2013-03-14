@@ -25,6 +25,8 @@ casper.start().each(artists, function(self, artist) {
 });
 
 if (casper.environment.env !== "live") {
+    // Adding messaging.  This should not be used on Dev/Q because this is dependent on 
+    // live mappings and old urls from VH1 and CMT.  Therefore, these may not work on DEV/Q.
     casper.echo("This test file is not meant to be used with DEV or Q environments.", "INFO");
     casper.test.done();
 }
