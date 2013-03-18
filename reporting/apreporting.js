@@ -23,6 +23,76 @@ var DEBUG = 0;
 //     return arr.indexOf(val)>=0; 
 // } 
 
+// List of actions where reporting can be reported, matched with the parameters
+// that must be tested for each.
+var testcases = {
+    "lady-gaga":{
+        c1 : "Lady Gaga",
+        c7: "Claimed",
+        c14: "Pop"
+    },
+    "pink-floyd":{
+        c1 : "Pink Floyd",
+        c7: "Unclaimed",
+        c14: "Rock"
+    }
+}
+
+
+var actions = {
+    "artist-profile:load":      ["c1","c7","c14","c28","ch","v49"],
+    "biography-overlay:click":  ["c1","c7","c28","ch","v49"],
+    "tourdates-overlay:click":  ["c1","c7","c28","ch","v49"],
+    "photo-overlay:click":      ["c1","c7","c28","ch","v49"],
+    "album-overlay:click":      ["c1","c7","c28","ch","v49"],
+    "similar-artists:load":     ["c1","c7","c14","c28","ch","v49"],
+    "influencer-artists:load":  ["c1","c7","c14","c28","ch","v49"],
+    "follower-artists:load":    ["c1","c7","c14","c28","ch","v49"],
+    "genre:load":               ["c28","ch","v49"],
+    "location:load":            ["c28","ch","v49"],
+    "startyear:load":           ["c28","ch","v49"],
+    "music-grid:load":          ["c1","c7","c14","c28","ch","v49"],
+    "updates-grid:load":        ["c1","c7","c14","c28","ch","v49"],
+    "interviews-grid:load":     ["c1","c7","c14","c28","ch","v49"],
+    "photos-grid:load":         ["c1","c7","c14","c28","ch","v49"],
+    "news-grid:load:load":      ["c1","c7","c14","c28","ch","v49"],
+    "discography-grid:load":    ["c1","c7","c14","c28","ch","v49"]
+}
+
+var omps = {
+    c1:{
+        name: "c1",
+        text: "Lady Gaga",
+        message: "reported c1 is equal to 'Lady Gaga'"
+    },
+    c7:{
+        name: "c7",
+        text: "Claimed",
+        message: "reported c7 is set to 'Claimed'"
+    },
+    c14:{
+        name: "c14",
+        text: "Pop",
+        message: "reported c14 is set to 'Pop'"
+    },
+    c28:{
+        name: "c28",
+        text: "bio page",
+        message: "reported c28 is equal to 'bio page'"
+    },
+    ch:{
+        name: "ch",
+        text: "artists",
+        message: "reported ch is set to 'artists'"
+    },
+    v49:{
+        name: "v49",
+        text: "artists",
+        message: "reported v49 is set to 'artists'"
+    }
+}
+
+
 //Parse through parameters given
 function getParameterByName(url, name) {
     var match = RegExp('[?&]' + name + '=([^&]*)')
@@ -47,7 +117,7 @@ function isOmnitureURL(url) {
 
 //Optionally take Pictures
 function takePicture(cobject) {
-	/**** Do you want to take screenshots.  Then make this equal to true: ****/
+	/**** Do you want to take screenshots.  Then raise the debug level above 0 ****/
 	if (DEBUG > 0) {
 		cobject.capture('reporter' + counter + '.png', {
 			top: 0,
@@ -66,171 +136,184 @@ casper.on('resource.requested', function(resource) {
     if ( isOmnitureURL(resource.url) ) {
         this.echo(this.current_event + "---------" + this.getCurrentUrl() + "-------------", 'COMMENT');
 
-        if (this.current_event === "artist-profile:load") {
-            this.test.comment(this.current_event);
-            this.test.assert( getParameterByName(resource.url, "c28") === "artist page", "reported c28 is equal to 'artist page'");
-            this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
-            this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
-            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga", "reported pageName is equal to profile page");
-            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
-            this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
-            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+        if (actions.hasOwnProperty(this.current_event)) {
+            console.log("Yep, we got it");
+            var cp = 0;
+
+            for (parameter in actions[this.current_event]) {
+                console.log("Action --------------" + actions[this.current_event][parameter])
+                cp = actions[this.current_event][parameter];
+                //this.test.comment(this.current_event);
+
+                this.test.assert( getParameterByName(resource.url, cp) === omps[cp].text, omps[cp].message )
+            }
+
         }
-        if (this.current_event === "biography-overlay:click") {
-            this.test.comment(this.current_event);   
-            this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
-            this.test.assert( getParameterByName(resource.url, "c28") === "bio page", "reported c28 is equal to 'bio page'");
-            this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
-            // Removed 1/8/2013 -- Unsure if applicable
-            //this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
-            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/biography/", "reported pageName is equal to biography page");
-            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
-            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
-        }
-        if (this.current_event === "tourdates-overlay:click") {
-            this.test.comment(this.current_event);   
-            this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
-            this.test.assert( getParameterByName(resource.url, "c28") === "bio page", "reported c28 is equal to 'bio page'");
-            this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
-            // Removed 1/8/2013 -- Unsure if applicable
-            //this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
-            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/biography/", "reported pageName is equal to biography page");
-            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
-            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
-        }
-        if (this.current_event === "photo-overlay:click") {
-            this.test.comment(this.current_event);
-            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/photos/7713906", "reported pageName is equal to photos page");
-            this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
-            this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
-            // Removed 1/8/2013 -- Unsure if applicable
-            //this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
-            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
-            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
-            this.test.assert( getParameterByName(resource.url, "c28") === "photo page", "reported c28 is equal to 'photo page'");
-        }
-        if (this.current_event === "album-overlay:click") {
-            this.test.comment(this.current_event);
-            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/discography/2766686/", "reported pageName is equal to discography page");
-            this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
-            this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
-            // Removed 1/8/2013 -- Unsure if applicable
-            //this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
-            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
-            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
-            this.test.assert( getParameterByName(resource.url, "c28") === "album page", "reported c28 is equal to 'album page'");
-        }
-        if (this.current_event === "similar-artists:load") {
-            this.test.comment(this.current_event);
-            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/related-artists/", "reported pageName is equal to related-artists page");
-            this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
-            this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
-            this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
-            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
-            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
-            this.test.assert( getParameterByName(resource.url, "c28") === "related artist page", "reported c28 is equal to 'related artists page'");
-        }
-        if (this.current_event === "influencer-artists:load") {
-            this.test.comment(this.current_event);
-            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/related-artists/", "reported pageName is equal to related-artists page");
-            this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
-            this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
-            this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
-            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
-            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
-            this.test.assert( getParameterByName(resource.url, "c28") === "related artist page", "reported c28 is equal to 'related artists page'");
-        }
-        if (this.current_event === "follower-artists:load") {
-            this.test.comment(this.current_event);
-            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/related-artists/", "reported pageName is equal to related-artists page");
-            this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
-            this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
-            this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
-            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
-            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
-            this.test.assert( getParameterByName(resource.url, "c28") === "related artist page", "reported c28 is equal to 'related artists page'");
-        }
-        if (this.current_event === "genre:load") {
-            this.test.comment(this.current_event);
-            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/genre/pop/", "reported pageName is equal to the pop page");
-            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
-            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
-            this.test.assert( getParameterByName(resource.url, "c28") === "genre page", "reported c28 is equal to 'genre page'");
-        }
-        if (this.current_event === "location:load") {
-            this.test.comment(this.current_event);
-            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/location/New+York+City,+NY/", "reported pageName is expected");
-            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
-            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
-            this.test.assert( getParameterByName(resource.url, "c28") === "location page", "reported c28 is equal to 'location page'");
-        }
-        if (this.current_event === "startyear:load") {
-            this.test.comment(this.current_event);
-            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/startyear/2005/", "reported pageName is expected");
-            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
-            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
-            this.test.assert( getParameterByName(resource.url, "c28") === "start year page", "reported c28 is equal to 'start year page'");
-        }
-        if (this.current_event === "music-grid:load") {
-            this.test.comment(this.current_event);
-            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/music/", "reported pageName is expected");
-            this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
-            this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
-            this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
-            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
-            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
-            this.test.assert( getParameterByName(resource.url, "c28") === "music page", "reported c28 is equal to 'music page', actual="+getParameterByName(resource.url, "c28"));
-        }
-        if (this.current_event === "updates-grid:load") {
-            this.test.comment(this.current_event);
-            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/updates/", "reported pageName is expected");
-            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
-            this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
-            this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
-            this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
-            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
-            this.test.assert( getParameterByName(resource.url, "c28") === "updates page", "reported c28 is equal to 'updates page', actual="+getParameterByName(resource.url, "c28"));
-        }
-        if (this.current_event === "interviews-grid:load") {
-            this.test.comment(this.current_event);
-            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/video-interviews/", "reported pageName is expected");
-            this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
-            this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
-            this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
-            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
-            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
-            this.test.assert( getParameterByName(resource.url, "c28") === "interviews page", "reported c28 is equal to 'interviews page', actual="+getParameterByName(resource.url, "c28"));
-        }
-        if (this.current_event === "photos-grid:load") {
-            this.test.comment(this.current_event);
-            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/photos/", "reported pageName is expected");
-            this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
-            this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
-            this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
-            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
-            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
-            this.test.assert( getParameterByName(resource.url, "c28") === "photos page", "reported c28 is equal to 'photos page', actual="+getParameterByName(resource.url, "c28"));
-        }
-        if (this.current_event === "news-grid:load:load") {
-            this.test.comment(this.current_event);
-            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/news/", "reported pageName is expected");
-            this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
-            this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
-            this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
-            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
-            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
-            this.test.assert( getParameterByName(resource.url, "c28") === "news page", "reported c28 is equal to 'news page', actual="+getParameterByName(resource.url, "c28"));
-        }
-        if (this.current_event === "discography-grid:load") {
-            this.test.comment(this.current_event);
-            this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/discography/", "reported pageName is expected");
-            this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
-            this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
-            this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
-            this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
-            this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
-            this.test.assert( getParameterByName(resource.url, "c28") === "discography page", "reported c28 is equal to 'discography page', actual="+getParameterByName(resource.url, "c28"));
-        }
+        // if (this.current_event === "artist-profile:load") {
+        //     this.test.comment(this.current_event);
+        //     this.test.assert( getParameterByName(resource.url, "c28") === "artist page", "reported c28 is equal to 'artist page'");
+        //     this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
+        //     this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
+        //     this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga", "reported pageName is equal to profile page");
+        //     this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+        //     this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
+        //     this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+        // }
+        // if (this.current_event === "biography-overlay:click") {
+        //     this.test.comment(this.current_event);   
+        //     this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
+        //     this.test.assert( getParameterByName(resource.url, "c28") === "bio page", "reported c28 is equal to 'bio page'");
+        //     this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
+        //     // Removed 1/8/2013 -- Unsure if applicable
+        //     //this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
+        //     this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/biography/", "reported pageName is equal to biography page");
+        //     this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+        //     this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+        // }
+        // if (this.current_event === "tourdates-overlay:click") {
+        //     this.test.comment(this.current_event);   
+        //     this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
+        //     this.test.assert( getParameterByName(resource.url, "c28") === "bio page", "reported c28 is equal to 'bio page'");
+        //     this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
+        //     // Removed 1/8/2013 -- Unsure if applicable
+        //     //this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
+        //     this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/biography/", "reported pageName is equal to biography page");
+        //     this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+        //     this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+        // }
+        // if (this.current_event === "photo-overlay:click") {
+        //     this.test.comment(this.current_event);
+        //     this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/photos/7713906", "reported pageName is equal to photos page");
+        //     this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
+        //     this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
+        //     // Removed 1/8/2013 -- Unsure if applicable
+        //     //this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
+        //     this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+        //     this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+        //     this.test.assert( getParameterByName(resource.url, "c28") === "photo page", "reported c28 is equal to 'photo page'");
+        // }
+        // if (this.current_event === "album-overlay:click") {
+        //     this.test.comment(this.current_event);
+        //     this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/discography/2766686/", "reported pageName is equal to discography page");
+        //     this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
+        //     this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
+        //     // Removed 1/8/2013 -- Unsure if applicable
+        //     //this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
+        //     this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+        //     this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+        //     this.test.assert( getParameterByName(resource.url, "c28") === "album page", "reported c28 is equal to 'album page'");
+        // }
+        // if (this.current_event === "similar-artists:load") {
+        //     this.test.comment(this.current_event);
+        //     this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/related-artists/", "reported pageName is equal to related-artists page");
+        //     this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
+        //     this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
+        //     this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
+        //     this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+        //     this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+        //     this.test.assert( getParameterByName(resource.url, "c28") === "related artist page", "reported c28 is equal to 'related artists page'");
+        // }
+        // if (this.current_event === "influencer-artists:load") {
+        //     this.test.comment(this.current_event);
+        //     this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/related-artists/", "reported pageName is equal to related-artists page");
+        //     this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
+        //     this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
+        //     this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
+        //     this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+        //     this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+        //     this.test.assert( getParameterByName(resource.url, "c28") === "related artist page", "reported c28 is equal to 'related artists page'");
+        // }
+        // if (this.current_event === "follower-artists:load") {
+        //     this.test.comment(this.current_event);
+        //     this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/related-artists/", "reported pageName is equal to related-artists page");
+        //     this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
+        //     this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
+        //     this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
+        //     this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+        //     this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+        //     this.test.assert( getParameterByName(resource.url, "c28") === "related artist page", "reported c28 is equal to 'related artists page'");
+        // }
+        // if (this.current_event === "genre:load") {
+        //     this.test.comment(this.current_event);
+        //     this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/genre/pop/", "reported pageName is equal to the pop page");
+        //     this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+        //     this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+        //     this.test.assert( getParameterByName(resource.url, "c28") === "genre page", "reported c28 is equal to 'genre page'");
+        // }
+        // if (this.current_event === "location:load") {
+        //     this.test.comment(this.current_event);
+        //     this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/location/New+York+City,+NY/", "reported pageName is expected");
+        //     this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+        //     this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+        //     this.test.assert( getParameterByName(resource.url, "c28") === "location page", "reported c28 is equal to 'location page'");
+        // }
+        // if (this.current_event === "startyear:load") {
+        //     this.test.comment(this.current_event);
+        //     this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/startyear/2005/", "reported pageName is expected");
+        //     this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+        //     this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+        //     this.test.assert( getParameterByName(resource.url, "c28") === "start year page", "reported c28 is equal to 'start year page'");
+        // }
+        // if (this.current_event === "music-grid:load") {
+        //     this.test.comment(this.current_event);
+        //     this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/music/", "reported pageName is expected");
+        //     this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
+        //     this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
+        //     this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
+        //     this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+        //     this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+        //     this.test.assert( getParameterByName(resource.url, "c28") === "music page", "reported c28 is equal to 'music page', actual="+getParameterByName(resource.url, "c28"));
+        // }
+        // if (this.current_event === "updates-grid:load") {
+        //     this.test.comment(this.current_event);
+        //     this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/updates/", "reported pageName is expected");
+        //     this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+        //     this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
+        //     this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
+        //     this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
+        //     this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+        //     this.test.assert( getParameterByName(resource.url, "c28") === "updates page", "reported c28 is equal to 'updates page', actual="+getParameterByName(resource.url, "c28"));
+        // }
+        // if (this.current_event === "interviews-grid:load") {
+        //     this.test.comment(this.current_event);
+        //     this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/video-interviews/", "reported pageName is expected");
+        //     this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
+        //     this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
+        //     this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
+        //     this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+        //     this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+        //     this.test.assert( getParameterByName(resource.url, "c28") === "interviews page", "reported c28 is equal to 'interviews page', actual="+getParameterByName(resource.url, "c28"));
+        // }
+        // if (this.current_event === "photos-grid:load") {
+        //     this.test.comment(this.current_event);
+        //     this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/photos/", "reported pageName is expected");
+        //     this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
+        //     this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
+        //     this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
+        //     this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+        //     this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+        //     this.test.assert( getParameterByName(resource.url, "c28") === "photos page", "reported c28 is equal to 'photos page', actual="+getParameterByName(resource.url, "c28"));
+        // }
+        // if (this.current_event === "news-grid:load:load") {
+        //     this.test.comment(this.current_event);
+        //     this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/news/", "reported pageName is expected");
+        //     this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
+        //     this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
+        //     this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
+        //     this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+        //     this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+        //     this.test.assert( getParameterByName(resource.url, "c28") === "news page", "reported c28 is equal to 'news page', actual="+getParameterByName(resource.url, "c28"));
+        // }
+        // if (this.current_event === "discography-grid:load") {
+        //     this.test.comment(this.current_event);
+        //     this.test.assert( getParameterByName(resource.url, "pageName") === "/artists/lady-gaga/discography/", "reported pageName is expected");
+        //     this.test.assert( getParameterByName(resource.url, "c1") === "Lady Gaga", "reported c1 is equal to 'Lady Gaga'");
+        //     this.test.assert( getParameterByName(resource.url, "c7") === "Claimed", "reported c7 is set to 'Claimed'");
+        //     this.test.assert( getParameterByName(resource.url, "c14") === "Pop", "reported c14 is set to 'Pop'");
+        //     this.test.assert( getParameterByName(resource.url, "v49") === "artists", "reported v49 is set to 'artists'");
+        //     this.test.assert( getParameterByName(resource.url, "ch") === "artists", "reported ch is set to 'artists'");
+        //     this.test.assert( getParameterByName(resource.url, "c28") === "discography page", "reported c28 is equal to 'discography page', actual="+getParameterByName(resource.url, "c28"));
+        // }
     }
 });
 
