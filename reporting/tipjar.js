@@ -29,12 +29,18 @@ casper.on('resource.requested', function(resource) {
 
 
 casper.test.comment('Testing tip jar reporting on Artist Profile page');
-
 // Set the current event to null until we get to the true reporting call.  Otherwise, 
 // other Omniture calls will occur that aren't related to the Tip jar click event.
 casper.current_event = "";
 
-casper.start('http://www.mtv-d.mtvi.com/artists/the-sawg', function() {
+if (casper.environment.env == "live") {
+    var url = casper.environment.mtv + 'artists/lady-gaga/';
+}
+else {
+    var url = casper.environment.mtv + 'artists/the-sawg/';
+}
+
+casper.start(url, function() {
     this.echo(this.getCurrentUrl());
 });
 
@@ -54,5 +60,5 @@ casper.then(function() {
 });
 
 casper.run(function() {
-    this.test.done();
+    this.test.done(1);
 });
