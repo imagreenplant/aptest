@@ -1,3 +1,5 @@
+var url_prefix = casper.environment.mtv;
+
 var casper = require('casper').create({
 	viewportSize: {
 		width: 960,
@@ -12,16 +14,7 @@ var DEBUG = 0;
 // DEBUG Level 2 prints some urls
 // DEBUG Level 3 prints more data
 
-// var urls = [
-//         "http://www.mtv.com/artists/",
-//         "http://www.mtv-d.mtvi.com/artists/",
-//         "http://www.mtv-q.mtvi.com/artists/"
-// ]
 
-// //if(isInArray(foo,["bar","foobar","foo"])){ (...) }
-// function isInArray(val,arr) { 
-//     return arr.indexOf(val)>=0; 
-// } 
 
 // List of actions where reporting can be reported, matched with the parameters
 // that must be tested for each.
@@ -104,7 +97,7 @@ function getParameterByName(url, name) {
 // Boolean test to see if Valid Omniture URL, based on domain.  Checks for cookie 302 redirection.
 function isOmnitureURL(url) {
 
-    if ( url.indexOf("viamtv.112.2o7.net") > -1 ) {
+    if ( url.indexOf("viamtv.112.2o7.net") > -1 || url.indexOf("devmtvvia.112.2o7.net") > -1) {
         if (DEBUG > 1) { console.log("PASSED domain test:" + url);}
         // Looks for pccr parameter to filter out. See this link for more info.
         // http://blogs.adobe.com/digitalmarketing/analytics/under-the-hood-with-visits-and-visitors/
@@ -321,7 +314,7 @@ casper.on('resource.requested', function(resource) {
 casper.test.comment('Testing reporting on Artist Profile page');
 casper.current_event = "artist-profile:load";
 
-casper.start('http://www.mtv.com/artists/lady-gaga', function() {
+casper.start(url_prefix + 'artists/lady-gaga/', function() {
     this.wait(2000, function() {
     	takePicture(this);  // take picture of artist profile
     });
@@ -381,7 +374,7 @@ casper.then(function() {
 casper.then(function() {
     this.test.comment("Opening similar artists page", "COMMENT")
     this.current_event = "similar-artists:load";
-    this.thenOpen('http://www.mtv.com/artists/lady-gaga/related-artists/?filter=similar', function() {
+    this.thenOpen(url_prefix + 'artists/lady-gaga/related-artists/?filter=similar', function() {
         this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
         takePicture(this);
     });
@@ -393,7 +386,7 @@ casper.then(function() {
 casper.then(function() {
     this.test.comment("Opening following artists page", "COMMENT")
     this.current_event = "follower-artists:load";
-    this.thenOpen('http://www.mtv.com/artists/lady-gaga/related-artists/?filter=followers', function() {
+    this.thenOpen(url_prefix + 'artists/lady-gaga/related-artists/?filter=followers', function() {
         this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
         takePicture(this);
     });
@@ -403,7 +396,7 @@ casper.then(function() {
 casper.then(function() {
     this.test.comment("Opening influencing artists page", "COMMENT")
     this.current_event = "influencer-artists:load";
-    this.thenOpen('http://www.mtv.com/artists/lady-gaga/related-artists/?filter=influencedBy', function() {
+    this.thenOpen(url_prefix + 'artists/lady-gaga/related-artists/?filter=influencedBy', function() {
         this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
         takePicture(this);
     });
@@ -413,7 +406,7 @@ casper.then(function() {
 casper.then(function() {
     this.test.comment("Opening genre page", "COMMENT")
     this.current_event = "location:load";
-    this.thenOpen('http://www.mtv.com/artists/location/New+York+City%2C+NY/#from-lady-gaga', function() {
+    this.thenOpen(url_prefix + 'artists/location/New+York+City%2C+NY/#from-lady-gaga', function() {
         this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
         takePicture(this);
     });
@@ -423,7 +416,7 @@ casper.then(function() {
 casper.then(function() {
     this.test.comment("Opening location page", "COMMENT")
     this.current_event = "genre:load";
-    this.thenOpen('http://www.mtv.com/artists/genre/pop/#from-lady-gaga', function() {
+    this.thenOpen(url_prefix + 'artists/genre/pop/#from-lady-gaga', function() {
         this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
         takePicture(this);
     });
@@ -433,7 +426,7 @@ casper.then(function() {
 casper.then(function() {
     this.test.comment("Opening starting year page", "COMMENT")
     this.current_event = "startyear:load";
-    this.thenOpen('http://www.mtv.com/artists/startyear/2005/#from-lady-gaga', function() {
+    this.thenOpen(url_prefix + 'artists/startyear/2005/#from-lady-gaga', function() {
         this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
         takePicture(this);
     });
@@ -443,7 +436,7 @@ casper.then(function() {
 casper.then(function() {
     this.test.comment("Opening music page", "COMMENT")
     this.current_event = "music-grid:load";
-    this.thenOpen('http://www.mtv.com/artists/lady-gaga/music/', function() {
+    this.thenOpen(url_prefix + 'artists/lady-gaga/music/', function() {
         this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
         takePicture(this);
     });
@@ -453,7 +446,7 @@ casper.then(function() {
 casper.then(function() {
     this.test.comment("Opening updates grid page", "COMMENT")
     this.current_event = "updates-grid:load";
-    this.thenOpen('http://www.mtv.com/artists/lady-gaga/updates/', function() {
+    this.thenOpen(url_prefix + 'artists/lady-gaga/updates/', function() {
         this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
         takePicture(this);
     });
@@ -463,7 +456,7 @@ casper.then(function() {
 casper.then(function() {
     this.test.comment("Opening news and interviews grid page", "COMMENT")
     this.current_event = "interviews-grid:load";
-    this.thenOpen('http://www.mtv.com/artists/lady-gaga/video-interviews/', function() {
+    this.thenOpen(url_prefix + 'artists/lady-gaga/video-interviews/', function() {
         this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
         takePicture(this);
     });
@@ -473,7 +466,7 @@ casper.then(function() {
 casper.then(function() {
     this.test.comment("Opening photos grid page", "COMMENT")
     this.current_event = "photos-grid:load";
-    this.thenOpen('http://www.mtv.com/artists/lady-gaga/photos/', function() {
+    this.thenOpen(url_prefix + 'artists/lady-gaga/photos/', function() {
         this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
         takePicture(this);
     });
@@ -483,7 +476,7 @@ casper.then(function() {
 casper.then(function() {
     this.test.comment("Opening news grid page", "COMMENT")
     this.current_event = "news-grid:load";
-    this.thenOpen('http://www.mtv.com/artists/lady-gaga/news/', function() {
+    this.thenOpen(url_prefix + 'artists/lady-gaga/news/', function() {
         this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
         takePicture(this);
     });
@@ -493,7 +486,7 @@ casper.then(function() {
 casper.then(function() {
     this.test.comment("Opening discography grid page", "COMMENT")
     this.current_event = "discography-grid:load";
-    this.thenOpen('http://www.mtv.com/artists/lady-gaga/discography/', function() {
+    this.thenOpen(url_prefix + 'artists/lady-gaga/discography/', function() {
         this.echo(this.getCurrentUrl() + " loaded", "INFO"); 
         takePicture(this);
     });
