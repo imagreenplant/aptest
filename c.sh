@@ -13,4 +13,4 @@
 # c.sh . q
 
 echo "Testing $1 on the $2 environment"
-casperjs test $1 --pre=pre.js --$2
+casperjs test $1 --pre=pre.js --includes=inc.js --$2
