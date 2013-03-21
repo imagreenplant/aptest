@@ -1,31 +1,40 @@
 // Tests that a #hash tag properly brands different pages.
 
+
+// Need to use origin here.  Pushing the hash through a redirect won't work
+// unless you are going through origin.
+var m = casper.environment.origin.mtv;
+var v = casper.environment.origin.vh1;
+var c = casper.environment.origin.cmt;
+
+
 var links = [
-	"http://www.mtv-d.mtvi.com/artists/",
-	"http://www.mtv-d.mtvi.com/artists/lady-gaga/",
-	"http://www.mtv-d.mtvi.com/artists/james-brown/",
-	"http://www.mtv-d.mtvi.com/artists/the-sawg/",
-	"http://www.cmt-d.mtvi.com/artists/",
-	"http://www.cmt-d.mtvi.com/artists/carrie-underwood/",
-	"http://www.cmt-d.mtvi.com/artists/brad-paisley/",
-	"http://www.vh1-d.mtvi.com/artists/collections/concrete-country/896714/", 	//CMT Collection
-	"http://www.vh1-d.mtvi.com/artists/",										//VH1 Collection
-	"http://www.vh1-d.mtvi.com/artists/collections/vh1-classic/896674/"
+	m+"artists/",
+	m+"artists/lady-gaga/",
+	m+"artists/james-brown/",
+	m+"artists/the-sawg/",
+	v+"artists/",
+	v+"artists/carrie-underwood/",
+	v+"artists/brad-paisley/",
+	c+"artists/collections/concrete-country/896714/", 	//CMT Collection
+	c+"artists/",										//VH1 Collection
+	c+"artists/collections/vh1-classic/896674/"
 ];
 
-var brands = ["mtv", "vh1", "cmt", "wrong", ""];
+var brands = ["mtv", "vh1", "cmt"]; //, "wrong", ""];
 
-casper.start().each(links, function(self,link) {
-    self.each(brands, function(self,brand) {
-    	this.then( function() {
+casper.start().each(links, function(that,link) {
+    that.each(brands, function(self,brand) {
+    	self.then( function() {
     		this.clear();
     	});
 
-    	this.thenOpen(link+"#"+brand, function() {
-        	this.echo(this.getCurrentUrl(), "INFO");
+    	self.thenOpen(link+"#"+brand, function() {
+    		this.echo(link+"#"+brand,"INFO");
+        	this.echo(this.getCurrentUrl(), "COMMENT");
         });
         
-    	this.then(function() {
+    	self.then(function() {
     		if (brand === "mtv") {
     			this.test.assertExists('a#logo.mtv',"Found 'mtv' class on logo element");
 				this.test.assertNotExists('a#logo.vh1',"Did NOT find 'vh1' class on logo element");
@@ -70,7 +79,7 @@ casper.start().each(links, function(self,link) {
     	// 	}
 		});
 
-		this.then(function(){
+		self.then(function(){
 			// Clears out cookies and cache, to be able to re-create a new branding session
 			this.clear();
 		});
