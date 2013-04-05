@@ -101,7 +101,13 @@ function isOmnitureURL(url) {
         if (DEBUG > 1) { console.log("PASSED domain test:" + url);}
         // Looks for pccr parameter to filter out. See this link for more info.
         // http://blogs.adobe.com/digitalmarketing/analytics/under-the-hood-with-visits-and-visitors/
-        return decodeURIComponent(url).indexOf("&pccr=true") > -1 ? false : true;
+        if (decodeURIComponent(url).indexOf("&pccr=true") < 0 &&
+            decodeURIComponent(url).indexOf("&ch=artists") > -1) {
+            return true
+        }
+        else {
+            return false
+        }
     }
     else {
         return false
