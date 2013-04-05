@@ -34,23 +34,23 @@ var testcases = {
 
 // Defines what parameters to check for the selected action.
 var actions = {
-    "artist-profile:load":      ["c1","c7","c14","c28","ch","v49"],
-    "biography-overlay:click":  ["c1","c7","c28","ch","v49"],
-    "tourdates-overlay:click":  ["c1","c7","c28","ch","v49"],
-    "photo-overlay:click":      ["c1","c7","c28","ch","v49"],
-    "album-overlay:click":      ["c1","c7","c28","ch","v49"],
-    "similar-artists:load":     ["c1","c7","c14","c28","ch","v49"],
-    "influencer-artists:load":  ["c1","c7","c14","c28","ch","v49"],
-    "follower-artists:load":    ["c1","c7","c14","c28","ch","v49"],
-    "genre:load":               ["c28","ch","v49"],
-    "location:load":            ["c28","ch","v49"],
-    "startyear:load":           ["c28","ch","v49"],
-    "music-grid:load":          ["c1","c7","c14","c28","ch","v49"],
-    "updates-grid:load":        ["c1","c7","c14","c28","ch","v49"],
-    "interviews-grid:load":     ["c1","c7","c14","c28","ch","v49"],
-    "photos-grid:load":         ["c1","c7","c14","c28","ch","v49"],
-    "news-grid:load:load":      ["c1","c7","c14","c28","ch","v49"],
-    "discography-grid:load":    ["c1","c7","c14","c28","ch","v49"]
+    "artist-profile:load":      {params:["c1","c7","c14","c28","ch","v49"],c28:"artist page"},
+    "biography-overlay:click":  {params:["c1","c7","c28","ch","v49"],c28:"bio page"},
+    "tourdates-overlay:click":  {params:["c1","c7","c28","ch","v49"],c28:"tour page"},
+    "photo-overlay:click":      {params:["c1","c7","c28","ch","v49"],c28:"photo page"},
+    "album-overlay:click":      {params:["c1","c7","c28","ch","v49"],c28:"album page"},
+    "similar-artists:load":     {params:["c1","c7","c14","c28","ch","v49"],c28:"related artist page"},
+    "influencer-artists:load":  {params:["c1","c7","c14","c28","ch","v49"],c28:"related artist page"},
+    "follower-artists:load":    {params:["c1","c7","c14","c28","ch","v49"],c28:"related artist page"},
+    "genre:load":               {params:["c28","ch","v49"],c28:"genre page"},
+    "location:load":            {params:["c28","ch","v49"],c28:"location page"},
+    "startyear:load":           {params:["c28","ch","v49"],c28:"start year page"},
+    "music-grid:load":          {params:["c1","c7","c14","c28","ch","v49"],c28:"music page"},
+    "updates-grid:load":        {params:["c1","c7","c14","c28","ch","v49"],c28:"updates page"},
+    "interviews-grid:load":     {params:["c1","c7","c14","c28","ch","v49"],c28:"interviews page"},
+    "photos-grid:load":         {params:["c1","c7","c14","c28","ch","v49"],c28:"photos page"},
+    "news-grid:load:load":      {params:["c1","c7","c14","c28","ch","v49"],c28:"news page"},
+    "discography-grid:load":    {params:["c1","c7","c14","c28","ch","v49"],c28:"discography page"}
 }
 
 var omps = {
@@ -61,18 +61,13 @@ var omps = {
     },
     c7:{
         name: "c7",
-        text: "Claimed",
+        text: "Unclaimed",
         message: "reported c7 is set to 'Claimed'"
     },
     c14:{
         name: "c14",
         text: "Pop",
         message: "reported c14 is set to 'Pop'"
-    },
-    c28:{
-        name: "c28",
-        text: "bio page",
-        message: "reported c28 is equal to 'bio page'"
     },
     ch:{
         name: "ch",
@@ -137,16 +132,22 @@ casper.on('resource.requested', function(resource) {
         this.echo(this.current_event + "---------" + this.getCurrentUrl() + "-------------", 'COMMENT');
 
         if (actions.hasOwnProperty(this.current_event)) {
-            // console.log("Yep, we got it");
+            (DEBUG > 0) ? this.echo("Found property for "+this.current_event,"DEBUG") : 0;
             var cp = 0;
-
-            for (parameter in actions[this.current_event]) {
-                console.log("Action --------------" + actions[this.current_event][parameter])
-                cp = actions[this.current_event][parameter];
+            
+            for (parameter in actions[this.current_event]["params"]) {
+                cp = actions[this.current_event]["params"][parameter];
                 //this.test.comment(this.current_event);
-
-                this.test.assert( getParameterByName(resource.url, cp) === omps[cp].text, omps[cp].message )
+                if (cp === "c28") {
+                    this.test.assert( getParameterByName(resource.url,"c28") === 
+                        actions[this.current_event]["c28"], 
+                        "reported c28 is set to '" + actions[this.current_event]["c28"]+"'");
+                }
+                else {
+                    this.test.assert( getParameterByName(resource.url, cp) === omps[cp].text, omps[cp].message )
+                }
             }
+            
 
         }
         // if (this.current_event === "artist-profile:load") {
