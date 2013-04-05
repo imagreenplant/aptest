@@ -137,7 +137,7 @@ casper.on('resource.requested', function(resource) {
         this.echo(this.current_event + "---------" + this.getCurrentUrl() + "-------------", 'COMMENT');
 
         if (actions.hasOwnProperty(this.current_event)) {
-            console.log("Yep, we got it");
+            // console.log("Yep, we got it");
             var cp = 0;
 
             for (parameter in actions[this.current_event]) {
