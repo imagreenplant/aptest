@@ -9,5 +9,6 @@ casper.start(base_domain+tested_url, function() {
 })
 
 casper.run(function() {
-    this.test.renderResults(true);
+	this.test.done();
+    // this.test.renderResults(true);
 });
