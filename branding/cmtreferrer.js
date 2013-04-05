@@ -54,6 +54,7 @@ casper.then(function(){
 
 casper.then(function() {
 	this.echo(this.getCurrentUrl());
+	this.log(this.debugHTML("a#logo",true), "debug");
 	this.test.assertExists('a#logo.cmt',"Found 'cmt' class on logo element");
 	this.test.assertNotExists('a#logo.mtv',"Did NOT find 'mtv' class on logo element");
 	this.test.assertNotExists('a#logo.vh1',"Did NOT find 'vh1' class on logo element");
