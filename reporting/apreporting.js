@@ -32,6 +32,7 @@ var testcases = {
 }
 
 
+// Defines what parameters to check for the selected action.
 var actions = {
     "artist-profile:load":      ["c1","c7","c14","c28","ch","v49"],
     "biography-overlay:click":  ["c1","c7","c28","ch","v49"],
