@@ -57,6 +57,7 @@ casper.then(function() {
 //Turn the event back off, so no further reporting is tested.
 casper.then(function() {
     this.current_event = "";
+    this.on('resource.requested', function() {});
 });
 
 casper.run(function() {
