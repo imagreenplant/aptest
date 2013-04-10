@@ -32,6 +32,5 @@ casper.each(negative_case_links, function(self, link) {
 })
 
 casper.run(function() {
-    this.test.renderResults(true);
     this.test.done();
 });

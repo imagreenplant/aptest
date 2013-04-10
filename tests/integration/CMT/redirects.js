@@ -3,7 +3,7 @@
 mtv_q_base_domain = 'http://www.cmt.com'
 
 var fs = require('fs');
-var artists_file = fs.read('./integration/CMT/CMTartists.txt');
+var artists_file = fs.read('./tests/integration/CMT/CMTartists.txt');
 var artists = artists_file.split("\n");
 
 // console.log(artists[0]);
@@ -32,7 +32,6 @@ if (casper.environment.env !== "live") {
 }
 else {
     casper.run(function() {
-        this.test.renderResults(true);
         this.test.done();
     });
 }

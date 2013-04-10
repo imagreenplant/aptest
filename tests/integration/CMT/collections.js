@@ -21,5 +21,5 @@ casper.start().each(links, function(self, link) {
 });
 
 casper.run(function() {
-    this.test.renderResults(true);
+    this.test.done();
 });
