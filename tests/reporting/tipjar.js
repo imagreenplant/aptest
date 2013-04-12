@@ -51,7 +51,11 @@ casper.then(function() {
 
 //Click the Tip Jar
 casper.then(function() {
-    this.click("#profile_activity_leave_tip");
+    try { 
+        this.click("#profile_activity_leave_tip");
+    } catch (e) { 
+        this.test.assert(false, "Tip jar button does not exist.");
+    } 
 });
 
 //Turn the event back off, so no further reporting is tested.
