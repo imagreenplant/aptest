@@ -20,6 +20,14 @@ casper.start().each(links, function(self, link) {
     });
 });
 
-casper.run(function() {
-    this.test.done();
-});
+if (casper.environment.env == "dev") {
+    // Adding messaging.  This should not be used on Dev because the redirects are not in place
+    // there.  
+    casper.echo("This test file is not meant to be used with the DEV environment.", "INFO");
+    casper.test.done();
+}
+else {
+    casper.run(function() {
+        this.test.done();
+    });
+}
