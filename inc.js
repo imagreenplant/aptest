@@ -1,21 +1,10 @@
-// if (typeof String.prototype.trimLeft !== "function") {
-//     String.prototype.trimLeft = function() {
-//         return this.replace(/^\s+/, "");
-//     };
-// }
-// if (typeof String.prototype.trimRight !== "function") {
-//     String.prototype.trimRight = function() {
-//         return this.replace(/\s+$/, "");
-//     };
-// }
-// if (typeof Array.prototype.map !== "function") {
-//     Array.prototype.map = function(callback, thisArg) {
-//         for (var i=0, n=this.length, a=[]; i<n; i++) {
-//             if (i in this) a[i] = callback.call(thisArg, this[i]);
-//         }
-//         return a;
-//     };
-// }
+/*  Helpful functions for the test suite. */
+
+
+/*****************************************************************
+            Functions to parse cookies from a page.
+******************************************************************/
+
 function getCookies(cookies) {
     var c = cookies, v = 0, cookies = {};
     if (document.cookie.match(/^\s*\$Version=(?:"1"|1);\s*(.*)/)) {
@@ -40,6 +29,66 @@ function getCookies(cookies) {
     }
     return cookies;
 }
+
 function getCookie(name, cookies) {
     return getCookies(cookies)[name];
+}
+
+
+
+/*****************************************************************
+The following functions help with reporting suites for Omniture.
+******************************************************************/
+
+//Parse through parameters given in Omniture URL
+function getParameterByName(url, name) {
+    var match = RegExp('[?&]' + name + '=([^&]*)')
+                    .exec( url );
+    if (DEBUG > 1) { console.log(match + "Logged");}
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+}
+
+// Boolean test to see if Valid Omniture URL, based on domain.  Checks for cookie 302 redirection.
+function isOmnitureURL(url) {
+
+    if ( url.indexOf("viamtv.112.2o7.net") > -1 || url.indexOf("devmtvvia.112.2o7.net") > -1) {
+        if (DEBUG > 1) { console.log("PASSED domain test:" + url);}
+        // Looks for pccr parameter to filter out. See this link for more info.
+        // http://blogs.adobe.com/digitalmarketing/analytics/under-the-hood-with-visits-and-visitors/
+        if (decodeURIComponent(url).indexOf("&pccr=true") < 0 &&
+            decodeURIComponent(url).indexOf("&ch=artists") > -1) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    else {
+        return false
+    }
+}
+
+
+
+
+/*****************************************************************
+This function makes it easy to take a screenshot of the moment at
+which you call it.  You must pass in the casper object.
+
+Also note: takePicture will only activate if the debug level is 
+set to 1 or higher.
+******************************************************************/
+
+//Optionally take Pictures
+function takePicture(cobject) {
+    /**** Do you want to take screenshots.  Then raise the debug level above 0 ****/
+    if (DEBUG > 0) {
+        cobject.capture('reporter' + counter + '.png', {
+            top: 0,
+            left: 0,
+            width: 960,
+            height: 3000
+        });
+        counter++;
+    }
 }
