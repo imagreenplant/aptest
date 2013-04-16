@@ -1,22 +1,3 @@
-function getParameterByName(url, name) {
-    var match = RegExp('[?&]' + name + '=([^&]*)')
-                    .exec( url );
-    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-}
-
-// Boolean test to see if Valid Omniture URL, based on domain.  Checks for cookie 302 redirection.
-function isOmnitureURL(url) {
-    if ( url.indexOf("viamtv.112.2o7.net") > -1 || url.indexOf("devmtvvia.112.2o7.net") > -1) {
-        // console.log("PASSED domain test:" + url);
-        // Looks for pccr parameter to filter out. See this link for more info.
-        // http://blogs.adobe.com/digitalmarketing/analytics/under-the-hood-with-visits-and-visitors/
-        return decodeURIComponent(url).indexOf("&pccr=true") > -1 ? false : true;
-    }
-    else {
-        return false
-    }
-}
-
 // Trigger on requested resources.  Here, the resource is the Omniture gif.
 casper.on('resource.requested', function(resource) {    
     if ( isOmnitureURL(resource.url) ) {

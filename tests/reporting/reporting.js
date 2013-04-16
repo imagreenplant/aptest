@@ -58,49 +58,6 @@ var omps = {
     }
 }
 
-
-//Parse through parameters given
-function getParameterByName(url, name) {
-    var match = RegExp('[?&]' + name + '=([^&]*)')
-                    .exec( url );
-    if (DEBUG > 1) { console.log(match + "Logged");}
-    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-}
-
-// Boolean test to see if Valid Omniture URL, based on domain.  Checks for cookie 302 redirection.
-function isOmnitureURL(url) {
-
-    if ( url.indexOf("viamtv.112.2o7.net") > -1 || url.indexOf("devmtvvia.112.2o7.net") > -1) {
-        if (DEBUG > 1) { console.log("PASSED domain test:" + url);}
-        // Looks for pccr parameter to filter out. See this link for more info.
-        // http://blogs.adobe.com/digitalmarketing/analytics/under-the-hood-with-visits-and-visitors/
-        if (decodeURIComponent(url).indexOf("&pccr=true") < 0 &&
-            decodeURIComponent(url).indexOf("&ch=artists") > -1) {
-            return true
-        }
-        else {
-            return false
-        }
-    }
-    else {
-        return false
-    }
-}
-
-//Optionally take Pictures
-function takePicture(cobject) {
-	/**** Do you want to take screenshots.  Then raise the debug level above 0 ****/
-	if (DEBUG > 0) {
-		cobject.capture('reporter' + counter + '.png', {
-			top: 0,
-			left: 0,
-			width: 960,
-			height: 3000
-		});
-        counter++;
-	}
-}
-
 // Trigger on requested resources.  Here, the resource is the Omniture gif.
 casper.on('resource.requested', function(resource) {
     if (DEBUG > 2) { this.echo("DEBUG " + resource.url, 'INFO'); }
