@@ -41,8 +41,8 @@ var omps = {
     },
     c16:{
         name: "c16",
-        text: "3;32;33;41;53;56;58;",
-        message: "reported c16 is set to '3;32;33;41;53;56;58;'"
+        text: "60;61;",
+        message: "reported c16 is set to '60;61;'"
     },
     ch:{
         name: "ch",
@@ -56,8 +56,7 @@ var omps = {
     }
 }
 
-// Trigger on requested resources.  Here, the resource is the Omniture gif.
-casper.on('resource.requested', function(resource) {
+function testForOmnitureRequest(resource) {
     if (DEBUG > 2) { this.echo("DEBUG " + resource.url, 'INFO'); }
 
     if ( isOmnitureURL(resource.url) ) {
@@ -81,7 +80,7 @@ casper.on('resource.requested', function(resource) {
             }
         }
     }
-});
+}
 
 
 casper.echo("*****************************************************************************\n"+
@@ -96,6 +95,11 @@ casper.current_event = "artist-profile:load";
 // Viewport needs to be larger to allow albums and other elements to be loaded in, otherwise
 // the click commands won't work properly.
 casper.start('').viewport(1000,3000);
+
+casper.then(function(){
+    // Trigger on requested resources.  Here, the resource is the Omniture gif.
+    this.on('resource.requested', testForOmnitureRequest);
+});
 
 casper.thenOpen(url_prefix + 'artists' + artist_alias + '', function() {
     this.wait(2000, function() {
