@@ -68,9 +68,6 @@ function isOmnitureURL(url) {
     }
 }
 
-
-
-
 /*****************************************************************
 This function makes it easy to take a screenshot of the moment at
 which you call it.  You must pass in the casper object.
@@ -81,14 +78,19 @@ set to 1 or higher.
 
 //Optionally take Pictures
 function takePicture(cobject) {
-    /**** Do you want to take screenshots.  Then raise the debug level above 0 ****/
-    if (DEBUG > 0) {
+    /**** Do you want to take screenshots.  Then put casper in debug mode ****/
+    if (casper.logLevel === "debug") {
+    //if (casper.DEBUG > 0) {
         cobject.capture('reporter' + counter + '.png', {
             top: 0,
             left: 0,
             width: 960,
             height: 3000
         });
+        casper.echo("**** Picture Taken ****  -> reporter" + counter + ".png", "WARN");
         counter++;
     }
 }
+
+
+
