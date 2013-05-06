@@ -1,12 +1,5 @@
 var url_prefix = casper.environment.mtv;
 
-var utils = require('utils');
-var counter = 1;
-var DEBUG = 1;
-
-// DEBUG Level 1 takes pictures 
-// DEBUG Level 2 prints some urls
-// DEBUG Level 3 prints more data
 casper.run_reporting_tests = true;
 
 // Defines what parameters to check for the selected action.
@@ -41,37 +34,6 @@ casper.reporting.omps = {
         message: "reported v49 is set to 'artists'"
     }
 }
-
-// Trigger on requested resources.  Here, the resource is the Omniture gif.
-// casper.on('resource.requested', function(resource) {
-
-//     if (casper.run_reporting_tests === true) {
-//     if (DEBUG > 2) { this.echo("DEBUG " + resource.url, 'INFO'); }
-
-//     if ( isOmnitureURL(resource.url) ) {
-//         this.echo(this.current_event + "---------" + this.getCurrentUrl() + "-------------", 'COMMENT');
-
-//         if (actions.hasOwnProperty(this.current_event)) {
-//             (DEBUG > 0) ? this.echo("Found property for "+this.current_event,"DEBUG") : 0;
-//             var cp = 0;
-            
-//             for (parameter in actions[this.current_event]["params"]) {
-//                 cp = actions[this.current_event]["params"][parameter];
-//                 //this.test.comment(this.current_event);
-//                 if (cp === "c28") {
-//                     this.test.assert( getParameterByName(resource.url,"c28") === 
-//                         actions[this.current_event]["c28"], 
-//                         "reported c28 is set to '" + actions[this.current_event]["c28"]+"'");
-//                 }
-//                 else {
-//                     this.test.assert( getParameterByName(resource.url, cp) === omps[cp].text, omps[cp].message )
-//                 }
-//             }
-//         }
-//     }
-//     }
-// });
-
 
 casper.test.comment('Testing reporting on Artist Profile page');
 casper.current_event = "artist-profile:load";
