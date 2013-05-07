@@ -1,5 +1,9 @@
-var omps = {};
+var environment = "";
+function set_vars_per_env(c) {
+    environment = c.environment.env; 
+}
 
+var omps = {};
 omps.ladygaga = {
     c1:{
         name: "c1",
@@ -8,7 +12,7 @@ omps.ladygaga = {
     },
     c7:{
         name: "c7",
-        text: "Unclaimed",
+        text: (environment === "live" ? "Claimed" :  "Unclaimed"),
         message: "reported c7 is set to 'Claimed'"
     },
     c14:{

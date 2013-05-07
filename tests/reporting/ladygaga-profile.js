@@ -1,11 +1,13 @@
 var url_prefix = casper.environment.mtv;
 
+// This boolean must be set for reporting assertions/tests to occur.
 casper.run_reporting_tests = true;
 
 // Defines what parameters to check for the selected action.
 casper.reporting.actions = {
     "artist-profile:load":      {params:["c1","c7","c14","c28","ch","v49"],c28:"artist page"}
 }
+set_vars_per_env(casper);
 casper.reporting.omps = omps.ladygaga;
 
 casper.test.comment('Testing reporting on Artist Profile page');
