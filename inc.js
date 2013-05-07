@@ -44,7 +44,7 @@ The following functions help with reporting suites for Omniture.
 function getParameterByName(url, name) {
     var match = RegExp('[?&]' + name + '=([^&]*)')
                     .exec( url );
-    if (DEBUG > 1) { console.log(match + "Logged");}
+    if (casper.DEBUG > 1) { console.log(match + "Logged");}
     return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
 }
 
@@ -52,7 +52,7 @@ function getParameterByName(url, name) {
 function isOmnitureURL(url) {
 
     if ( url.indexOf("viamtv.112.2o7.net") > -1 || url.indexOf("devmtvvia.112.2o7.net") > -1) {
-        if (DEBUG > 1) { console.log("PASSED domain test:" + url);}
+        if (casper.DEBUG > 1) { console.log("PASSED domain test:" + url);}
         // Looks for pccr parameter to filter out. See this link for more info.
         // http://blogs.adobe.com/digitalmarketing/analytics/under-the-hood-with-visits-and-visitors/
         if (decodeURIComponent(url).indexOf("&pccr=true") < 0 &&
@@ -71,9 +71,6 @@ function isOmnitureURL(url) {
 /*****************************************************************
 This function makes it easy to take a screenshot of the moment at
 which you call it.  You must pass in the casper object.
-
-Also note: takePicture will only activate if the debug level is 
-set to 1 or higher.
 ******************************************************************/
 
 //Optionally take Pictures
@@ -81,14 +78,14 @@ function takePicture(cobject) {
     /**** Do you want to take screenshots.  Then put casper in debug mode ****/
     if (casper.logLevel === "debug") {
     //if (casper.DEBUG > 0) {
-        cobject.capture('reporter' + counter + '.png', {
+        cobject.capture('reporter' + casper.picture_count + '.png', {
             top: 0,
             left: 0,
             width: 960,
             height: 3000
         });
-        casper.echo("**** Picture Taken ****  -> reporter" + counter + ".png", "WARN");
-        counter++;
+        casper.echo("**** Picture Taken ****  -> reporter" + casper.picture_count + ".png", "WARN");
+        casper.picture_count++;
     }
 }
 
