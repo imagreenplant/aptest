@@ -4,12 +4,11 @@ var url_prefix = casper.environment.mtv;
 casper.run_reporting_tests = true;
 
 // Defines what parameters to check for the selected action.
-casper.reporting.params = {params:["c1","c7","c14","c28","ch","v49"],c28:"artist page"}
-setupReportingTest(casper, "lady-gaga");
-// casper.reporting.omps = omps.ladygaga;
-
-// casper.test.comment('Testing reporting on Artist Profile page');
-// casper.current_event = "artist-profile:load";
+casper.reporting.actions = {
+    "follower-artists:load":    {params:["c1","c7","c14","c28","ch","v49"],c28:"related artist page"},
+}
+set_vars_per_env(casper);
+casper.reporting.omps = omps.ladygaga;
 
 // Viewport needs to be changed AFTER start() is called.
 // Viewport needs to be larger to allow albums and other elements to be loaded in, otherwise
@@ -23,7 +22,7 @@ casper.thenOpen(url_prefix + 'artists/lady-gaga/', function() {
 });
 
 casper.then(function() {
-    // this.test.comment("Reporting tests complete.", "COMMENT");
+    this.test.comment("Reporting tests complete.", "COMMENT");
 
     // MUST MUST turn off reporting tests or all other tests will have reporting assertions run.
     this.run_reporting_tests = false;
