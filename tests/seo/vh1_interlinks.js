@@ -11,6 +11,9 @@ function start(link) {
     this.thenOpen(link, function() {
         this.echo('Page title: ' + this.getTitle());
         this.echo(this.getCurrentUrl());
+        if(link.indexOf("-jq.") > -1) {
+            link = link.replace("-jq.","-q.");
+        }
         this.test.assertEquals(link, this.getCurrentUrl(), "Link given in page matches link navigated to -> good SEO");
     });
 }
