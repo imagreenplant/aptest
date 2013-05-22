@@ -1,6 +1,7 @@
 // Default debug level
 casper.DEBUG = 0;
 casper.picture_count = 1;
+// casper.check_reporting_calls = false;
 
 casper.setDebugging = function setDebugging() {
 	if (casper.cli.has("logs")) {
@@ -17,50 +18,54 @@ casper.setDebugging = function setDebugging() {
 };
 
 //Helper to print out js objects when debugging
-casper.renderJSON = function(what) {
+casper.renderJSON = function renderJSON(what) {
     return this.echo(JSON.stringify(what, null, '  '));
 };
 
 //Setting up a reporting boolean.  The event listener for http requests won't respond with
 //reporting checks unless this is set to true within a testcase.
-casper.run_reporting_tests = false;
-casper.reporting = {};
+
+casper.reporting = {
+    check_reporting_calls : false
+};
 
 // In order to test reporting, the reporting object must be added
 // DEBUG Level 1 takes pictures 
 // DEBUG Level 2 prints some urls
 // DEBUG Level 3 prints more data
-casper.testReporting = function (resource) {
-    if (this.DEBUG > 2) { this.echo("DEBUG " + resource.url); }
 
-    if ( isOmnitureURL(resource.url) ) {
-        this.echo("---------" + this.getCurrentUrl() + "-------------", 'COMMENT');
-        (this.DEBUG > 0) ? this.echo("DEBUG " + resource.url, 'COMMENT') : 0;
+// casper.testReporting = function (resource) {
+//     if (this.DEBUG > 2) { this.echo("DEBUG " + resource.url); }
 
-        // if (this.reporting.actions.hasOwnProperty(this.current_event)) {
-        //     (this.DEBUG > 0) ? this.echo("Found property for "+this.current_event,"DEBUG") : 0;
-            var cp = 0;
+//     if ( isOmnitureURL(resource.url) ) {
+//         this.echo("---------" + this.getCurrentUrl() + "-------------", 'COMMENT');
+//         (this.DEBUG > 0) ? this.echo("DEBUG " + resource.url, 'COMMENT') : 0;
+
+//         // if (this.reporting.actions.hasOwnProperty(this.current_event)) {
+//         //     (this.DEBUG > 0) ? this.echo("Found property for "+this.current_event,"DEBUG") : 0;
+//             var cp = 0;
             
-            for (parameter in this.reporting.params["params"]) {
-                cp = this.reporting.params["params"][parameter];
-                //this.test.comment(this.current_event);
-                if (cp === "c28") {
-                    this.test.assert( getParameterByName(resource.url,"c28") === 
-                        this.reporting.params["c28"], 
-                        "reported c28 is set to '" + this.reporting.params["c28"]+"'");
-                }
-                else {
-                    this.test.assert( getParameterByName(resource.url, cp) === this.reporting.omps[cp].text,
-                    	this.reporting.omps[cp].message );
-                }
-            }
-        // }
-    }
-}
+//             for (parameter in this.reporting.params["params"]) {
+//                 cp = this.reporting.params["params"][parameter];
+//                 //this.test.comment(this.current_event);
+//                 if (cp === "c28") {
+//                     this.test.assert( getParameterByName(resource.url,"c28") === 
+//                         this.reporting.params["c28"], 
+//                         "reported c28 is set to '" + this.reporting.params["c28"]+"'");
+//                 }
+//                 else {
+//                     this.test.assert( getParameterByName(resource.url, cp) === this.reporting.omps[cp].text,
+//                     	this.reporting.omps[cp].message );
+//                 }
+//             }
+//         // }
+//     }
+// }
 
 casper.on('resource.requested', function(resource) {
-    if (casper.run_reporting_tests === true) {
-    	casper.testReporting(resource);
+    (casper.DEBUG > 0) ? this.echo("Reporting calls being checked: " + this.reporting.check_reporting_calls) : false;
+    if (casper.reporting.check_reporting_calls === true) {
+    	casper.testReporting(resource, casper.reporting.check_reporting_calls);
     }
 });
 
