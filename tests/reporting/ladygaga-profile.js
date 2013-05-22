@@ -50,7 +50,6 @@ casper.reporting.params = {params:["c1","c7","c14","c28","ch","v49"],c28:"artist
 casper.start('').viewport(1000,3000);
 casper.then(function(){
     this.turnOnReporting();
-    this.echo('here');
 });
 casper.thenOpen(url_prefix + 'artists/lady-gaga/', function() {
     this.wait(2000, function() {
