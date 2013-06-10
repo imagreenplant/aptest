@@ -78,11 +78,13 @@ function takePicture(cobject) {
     /**** Do you want to take screenshots.  Then put casper in debug mode ****/
     if (casper.logLevel === "debug") {
     //if (casper.DEBUG > 0) {
-        cobject.capture('reporter' + casper.picture_count + '.png', {
-            top: 0,
-            left: 0,
-            width: 960,
-            height: 3000
+        casper.wait(2000,function() {
+            cobject.capture('reporter' + casper.picture_count + '.png', {
+                top: 0,
+                left: 0,
+                width: 960,
+                height: 3000
+            });
         });
         casper.echo("**** Picture Taken ****  -> reporter" + casper.picture_count + ".png", "WARN");
         casper.picture_count++;
