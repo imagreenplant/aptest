@@ -38,12 +38,7 @@ casper.test.comment('Testing reporting on bio overlay on the Lady Gaga profile p
 // the click commands won't work properly.
 casper.start('').viewport(1000,3000);
 
-
-casper.thenOpen(url_prefix + 'artists/lady-gaga/', function() {
-    // this.wait(2000, function() {
-    //     takePicture(this);  // take picture of artist profile
-    // });
-});
+casper.thenOpen(url_prefix + 'artists/lady-gaga/', function() {});
 
 casper.then(function(){
     // Turns on reporting tester.  Otherwise it runs for every test case.
@@ -58,6 +53,7 @@ casper.then(function() {
     });
 });
 casper.then(function() {
+    takePicture(this);
     // MUST MUST turn off reporting tests or all other tests will have reporting assertions run.
     this.turnOffReporting();
 });
