@@ -41,11 +41,7 @@ casper.then(function(){
     this.turnOnReporting();
 });
 
-casper.thenOpen(url_prefix + 'artists/lady-gaga/', function() {
-    // this.wait(2000, function() {
-    //     takePicture(this);  // take picture of artist profile
-    // });
-});
+casper.thenOpen(url_prefix + 'artists/lady-gaga/', function() {});
 
 casper.then(function() {
     // MUST MUST turn off reporting tests or all other tests will have reporting assertions run.
