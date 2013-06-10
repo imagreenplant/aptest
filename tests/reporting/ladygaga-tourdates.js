@@ -29,9 +29,9 @@ casper.reporting.omps = {
 }
 
 // Defines what parameters to check for the selected action.
-casper.reporting.params = {params:["c1","c7","c14","c28","ch","v49"],c28:"artist page"}
+casper.reporting.params = {params:["c1","c7","c14","c28","ch","v49"],c28:"tourdates page"}
 
-casper.test.comment('Testing reporting on Lady Gaga artist profile page');
+casper.test.comment('Testing reporting on Lady Gaga tour dates page');
 
 // Viewport needs to be changed AFTER start() is called.
 // Viewport needs to be larger to allow albums and other elements to be loaded in, otherwise
@@ -41,7 +41,7 @@ casper.then(function(){
     this.turnOnReporting();
 });
 
-casper.thenOpen(url_prefix + 'artists/lady-gaga/', function() {
+casper.thenOpen(url_prefix + 'artists/lady-gaga/tourdates/', function() {
     // this.wait(2000, function() {
     //     takePicture(this);  // take picture of artist profile
     // });

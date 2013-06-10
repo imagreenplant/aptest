@@ -40,9 +40,9 @@ casper.start('').viewport(1000,3000);
 
 
 casper.thenOpen(url_prefix + 'artists/lady-gaga/', function() {
-    this.wait(2000, function() {
-        takePicture(this);  // take picture of artist profile
-    });
+    // this.wait(2000, function() {
+    //     takePicture(this);  // take picture of artist profile
+    // });
 });
 
 casper.then(function(){
