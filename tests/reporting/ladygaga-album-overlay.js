@@ -29,7 +29,7 @@ casper.reporting.omps = {
 }
 
 // Defines what parameters to check for the selected action.
-casper.reporting.params = {params:["c1","c7","c28","ch","v49"],c28:"album page"},
+casper.reporting.params = {params:["c1","c7","c28","ch","v49"],c28:"album page"}
 
 casper.test.comment('Testing reporting on photo overlay on the Lady Gaga profile page.');
 
