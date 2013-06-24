@@ -43,12 +43,13 @@ casper.thenOpen(url_prefix + 'artists/lady-gaga/', function() {});
 casper.then(function(){
     // Turns on reporting tester.  Otherwise it runs for every test case.
     this.turnOnReporting();
+takePicture(this);
 });
 
 casper.then(function() {
     this.wait(2000, function() {
         this.test.comment("Opening photo overlay", "COMMENT");
-        this.click('#profile_artist_images .carousel-item-link-layer a');
+        this.click('#profile_artist_images .carousel-item-link-layer div');
     });
 });
 casper.then(function() {
