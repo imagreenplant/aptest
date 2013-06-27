@@ -11,7 +11,7 @@ var test_links = {
         'artists/lady-gaga/',
         'artists/rihanna/'
     ]
-}
+};
 
 var links = casper.environment.env === "live" ? test_links.live : test_links.dev_or_q;
     
@@ -22,7 +22,7 @@ casper.each(links, function(self, link) {
     });
 
     self.then(function(){
-    	this.test.assertExists('li.topspinActive', "li item with class 'topspinActive' exists");
+        this.test.assertExists('li.topspinActive', "li item with class 'topspinActive' exists");
         this.test.assertExists('li.topspinActive span.icon', "span element with class 'icon' exists");
         this.test.assertExists('li.topspinActive span.label', "span element with class 'icon' exists");
         this.test.assertEquals(this.fetchText('li.topspinActive span.label'),"Active", "Text in label element is 'Active'");

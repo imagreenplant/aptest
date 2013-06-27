@@ -16,20 +16,20 @@ casper.start(fakeReferrer, function() {
 casper.thenEvaluate(function() {
 	//helper function to parse variables from the url 
 	var getUrlVars = function(v) {
-	    var vars = {};
-	    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-	        vars[key] = value;
-	    });
-	    if(v==undefined) {
-	        return vars;
-	    } else {
-	        if(vars[v] !== undefined) {
-	            return vars[v];
-	        } else {
-	            return false;
-	        }
-	    }
+		var vars = {};
+		var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+			vars[key] = value;
+		});
+		if(v===undefined) {
+			return vars;
+		} else {
+		if(vars[v] !== undefined) {
+			return vars[v];
+		} else {
+			return false;
+		}
 	}
+};
 
 	console.log("This is the new url:" + window.location.href);
 	
@@ -50,7 +50,7 @@ casper.then(function() {
 
 casper.then(function(){
 	this.wait(2000);
-})
+});
 
 casper.then(function() {
 	this.echo(this.getCurrentUrl());

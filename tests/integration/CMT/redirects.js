@@ -1,6 +1,6 @@
 
 
-mtv_q_base_domain = 'http://www.cmt.com'
+mtv_q_base_domain = 'http://www.cmt.com';
 
 var fs = require('fs');
 var artists_file = fs.read('./tests/integration/CMT/CMTartists.txt');
@@ -14,13 +14,15 @@ var cmtpattern = new RegExp ('^http://www.(cmt|mtv).com/artists/');
 casper.start().each(artists, function(self, artist) {
     clink = self.environment.cmt + "artists/az/" + artist + "/artist.jhtml";
     self.thenOpen(clink, function() {
-        this.echo("Requested link: " + clink)
+        this.echo("Requested link: " + clink);
         this.echo(this.getTitle());
         this.echo(this.getCurrentUrl());
         // Test to make sure a CMT owned collection, when linked under mtv.com domain, 
         // will redirect to be under a CMT domain.
         this.test.assertUrlMatch(cmtpattern, 'Domain successfully served from CMT. MLAP-1387');
-        this.test.assertNotEquals(this.getCurrentUrl(), "http://www.mtv.com/artists/null/", "Artist url should NOT be directed to the NULL artist at /artists/null")
+        this.test.assertNotEquals(this.getCurrentUrl(), 
+            "http://www.mtv.com/artists/null/", 
+            "Artist url should NOT be directed to the NULL artist at /artists/null");
     });
 });
 

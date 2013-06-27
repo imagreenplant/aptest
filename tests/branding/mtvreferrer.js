@@ -24,7 +24,7 @@ casper.then(function() {
 
 casper.then(function(){
 	this.wait(2000);
-})
+});
 
 casper.then(function() {
 	this.echo(this.getCurrentUrl());

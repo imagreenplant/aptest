@@ -26,10 +26,10 @@ casper.reporting.omps = {
         text: "artists",
         message: "reported v49 is set to 'artists'"
     }
-}
+};
 
 // Defines what parameters to check for the selected action.
-casper.reporting.params = {params:["c1","c7","c14","c28","ch","v49"],c28:"news page"}
+casper.reporting.params = {params:["c1","c7","c14","c28","ch","v49"],c28:"news page"};
 
 casper.test.comment('Testing reporting on Lady Gaga news grid page');
 

@@ -26,10 +26,10 @@ casper.reporting.omps = {
         text: "artists",
         message: "reported v49 is set to 'artists'"
     }
-}
+};
 
 // Defines what parameters to check for the selected action.
-casper.reporting.params = {params:["c1","c7","c14","c28","ch","v49"],c28:"related artist page"}
+casper.reporting.params = {params:["c1","c7","c14","c28","ch","v49"],c28:"related artist page"};
 
 casper.test.comment('Testing reporting on Lady Gaga influencing artists page');
 
@@ -39,7 +39,7 @@ casper.test.comment('Testing reporting on Lady Gaga influencing artists page');
 casper.start('').viewport(1000,3000);
 casper.then(function(){
     this.turnOnReporting();
-    this.test.comment("Opening influencing artists page", "COMMENT")
+    this.test.comment("Opening influencing artists page", "COMMENT");
 });
 
 casper.thenOpen(url_prefix + 'artists/lady-gaga/related-artists/?filter=influencedBy', function() {

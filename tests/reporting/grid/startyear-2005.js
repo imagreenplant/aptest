@@ -11,10 +11,10 @@ casper.reporting.omps = {
         text: "artists",
         message: "reported v49 is set to 'artists'"
     }
-}
+};
 
 // Defines what parameters to check for the selected action.
-casper.reporting.params = {params:["c28","ch","v49"],c28:"start year page"}
+casper.reporting.params = {params:["c28","ch","v49"],c28:"start year page"};
 
 casper.test.comment('Testing reporting on starting year page');
 

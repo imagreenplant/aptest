@@ -43,7 +43,7 @@ casper.start().each(links, function(self, link) {
         }, 'Only 1 H1 exists @ ' + link);
         this.test.assertNotEquals(this.fetchText('h1').length,0, "H1 is not empty. H1: " + this.fetchText('h1'));
     });
-})
+});
 
 casper.run(function() {
     this.test.done();

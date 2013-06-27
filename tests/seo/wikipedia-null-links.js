@@ -19,17 +19,17 @@ for (var j=0;j<negative_test_urls.length;j++) {
 casper.start().each(links, function(self, link) {
 	self.thenOpen(link, function() {
         this.echo("Testing " + this.getCurrentUrl(), 'INFO');
-    	this.test.assertDoesntExist('a#profile_detail_bio', 'The bio element #profile_detail_bio link does not exist.');
+        this.test.assertDoesntExist('a#profile_detail_bio', 'The bio element #profile_detail_bio link does not exist.');
     });
-})
+});
 
 //Just to make sure we didn't break anything, testing the negative case
 casper.each(negative_case_links, function(self, link) {
 	self.thenOpen(link, function() {
         this.echo("Testing " + this.getCurrentUrl(), 'INFO');
-    	this.test.assertExists('a#profile_detail_bio', 'The bio element #profile_detail_bio link DOES exist.');
+        this.test.assertExists('a#profile_detail_bio', 'The bio element #profile_detail_bio link DOES exist.');
     });
-})
+});
 
 casper.run(function() {
     this.test.done();
