@@ -5,8 +5,8 @@
             Functions to parse cookies from a page.
 ******************************************************************/
 
-function getCookies(cookies) {
-    var c = cookies, v = 0, cookies = {};
+function getCookies(raw_cookies) {
+    var c = raw_cookies, v = 0, cookies = {};
     if (document.cookie.match(/^\s*\$Version=(?:"1"|1);\s*(.*)/)) {
         c = RegExp.$1;
         v = 1;
@@ -21,9 +21,7 @@ function getCookies(cookies) {
     } else {
         c.match(/(?:^|\s+)([!#$%&'*+\-.0-9A-Z^`a-z|~]+)=([!#$%&'*+\-.0-9A-Z^`a-z|~]*|"(?:[\x20-\x7E\x80\xFF]|\\[\x00-\x7F])*")(?=\s*[,;]|$)/g).map(function($0, $1) {
             var name = $0,
-                value = $1.charAt(0) === '"'
-                          ? $1.substr(1, -1).replace(/\\(.)/g, "$1")
-                          : $1;
+                value = $1.charAt(0) === '"' ? $1.substr(1, -1).replace(/\\(.)/g, "$1") : $1;
             cookies[name] = value;
         });
     }
@@ -57,14 +55,14 @@ function isOmnitureURL(url) {
         // http://blogs.adobe.com/digitalmarketing/analytics/under-the-hood-with-visits-and-visitors/
         if (decodeURIComponent(url).indexOf("&pccr=true") < 0 &&
             decodeURIComponent(url).indexOf("&ch=artists") > -1) {
-            return true
+            return true;
         }
         else {
-            return false
+            return false;
         }
     }
     else {
-        return false
+        return false;
     }
 }
 

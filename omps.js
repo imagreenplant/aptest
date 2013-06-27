@@ -1,25 +1,27 @@
 casper.turnOnReporting = function turnOnReporting() {
     casper.reporting.check_reporting_calls = true;
-} 
+}; 
 
 casper.turnOffReporting = function turnOffReporting() {
     casper.reporting.check_reporting_calls = false;
     casper.reporting.params = {};
     casper.reporting.omps = {};
-}
+};
 
 casper.testReporting = function testReporting(resource, params) {
     if (this.DEBUG > 2) { this.echo("DEBUG " + resource.url); }
 
     if ( isOmnitureURL(resource.url) ) {
         this.echo("---------" + this.getCurrentUrl() + "-------------", 'COMMENT');
-        (this.DEBUG > 0) ? this.echo("DEBUG " + resource.url, 'COMMENT') : 0;
+        if (this.DEBUG > 0) {
+            this.echo("DEBUG " + resource.url, 'COMMENT');
+        }
 
         // if (this.reporting.actions.hasOwnProperty(this.current_event)) {
         //     (this.DEBUG > 0) ? this.echo("Found property for "+this.current_event,"DEBUG") : 0;
             var cp = 0;
             
-            for (parameter in this.reporting.params["params"]) {
+            for (var parameter in this.reporting.params["params"]) {
                 cp = this.reporting.params["params"][parameter];
                 //this.test.comment(this.current_event);
                 if (cp === "c28") {
@@ -34,4 +36,4 @@ casper.testReporting = function testReporting(resource, params) {
             }
         // }
     }
-}
+};
