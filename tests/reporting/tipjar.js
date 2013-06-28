@@ -4,10 +4,15 @@ casper.reporting.omps = {
         name: "pev2",
         text: "Artist Platform Tip Jar Click",
         message: "pev2 is reported as 'Artist Platform Tip Jar Click'"
+    },
+    ch:{
+        name: "ch",
+        text: "artists",
+        message: "'ch' is equal to 'artists'"
     }
 };
 
-casper.reporting.params = {params:["pev2"]};
+casper.reporting.params = {params:["pev2","ch"]};
 
 casper.test.comment('Testing tip jar reporting on Artist Profile page');
 
@@ -36,5 +41,5 @@ casper.then(function() {
 });
 
 casper.run(function() {
-    this.test.done(1);
+    this.test.done(2);
 });
