@@ -43,5 +43,9 @@ casper.on('resource.requested', function(resource) {
     }
 });
 
+casper.on("page.error", function(msg, trace) {
+    this.test.fail("Javascript Error: " + msg);
+});
+
 casper.setDebugging();
 casper.test.done();
