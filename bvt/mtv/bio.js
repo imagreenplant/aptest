@@ -1,10 +1,11 @@
 casper.test.comment('BVT: bio page.');
 
 casper.start(casper.environment.mtv + 'artists/taylor-swift/biography/', function() {
-    this.test.assertTitle("Taylor Swift Bio | Taylor Swift Career | MTV", 
-        "Title is equal to Taylor Swift Bio | Taylor Swift Career | MTV");
+    this.echo("Opening " + this.getCurrentUrl(), 'INFO');
+    this.test.assertHttpStatus(200, 'Received 200 Status response');
+    testSEOTagsForArtist(this, {name:"Taylor Swift", alias:"taylor-swift", brand:"Mtv"});
 });
 
 casper.run(function() {
-    this.test.done(1);
+    this.test.done();
 });
