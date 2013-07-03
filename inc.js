@@ -97,23 +97,31 @@ the name, url-alias, and brand of the artist.
 
 function testSEOTagsForArtist(that, artist_object, type) {
     var environment = that.environment[artist_object.brand.toLowerCase()];
-    console.log(environment);
     var seo = {
         bio:{
             title: artist_object.name + " Bio | "+artist_object.name+" Career | " + artist_object.brand.toUpperCase(),
             h1: artist_object.name + ' Biography',
             desc: "Interesting wiki facts about "+artist_object.name+". Find out the latest biography details including "+artist_object.name+"'s personal life, family, and musical career.",
             canonical: environment + 'artists/' + artist_object.alias + '/biography/'
+        },
+        profile:{
+            title: artist_object.name + " | New Music And Songs | " + artist_object.brand.toUpperCase(),
+            h1: artist_object.name,
+            desc: artist_object.name + " Music, Tour Dates, Photos, Videos, and official news updates directly from " + artist_object.name + "'s Twitter and Facebook.",
+            canonical: "http://www.mtv.com/artists/" + artist_object.alias + '/'
         }
-    }
+    };
+
+    var tdata = seo[type];
+
     if (artist_object) {
         that.echo("Performing SEO test cases on " + that.getCurrentUrl(), 'INFO');
-        that.test.assertTitle(seo.bio.title, "Title matches SEO document.");
-        that.test.assertEquals(that.fetchText('h1'), seo.bio.h1, "H1 matches SEO document.");
-        that.test.assertEquals(that.getElementAttribute('meta[name=description]','content'), seo.bio.desc,
+        that.test.assertTitle(tdata.title, "Title matches SEO document.");
+        that.test.assertEquals(that.fetchText('h1'), tdata.h1, "H1 matches SEO document.");
+        that.test.assertEquals(that.getElementAttribute('meta[name=description]','content'), tdata.desc,
             'meta tag description matches SEO document.');
         that.test.assertEquals(
-            that.getElementAttribute('link[rel=canonical]','href'), seo.bio.canonical, 'Canonical link matches SEO document.');    
+            that.getElementAttribute('link[rel=canonical]','href'), tdata.canonical, 'Canonical link matches SEO document.');    
     } else {
         that.test.assert(false, "Test failure.  Artist object passed to testSEOtags() function is undefined");
     }
