@@ -1,11 +1,11 @@
 var test_links = {
-    'dev_or_q': [
+    'dev': [
         'artists/the-zutler-trio/',
         'artists/olivia/',
         'artists/the-sawg/',
         'artists/mindy-smith/'
     ],
-    'live': [
+    'live_or_q': [
         'artists/the-sawg/',
         'artists/jami/',
         'artists/lady-gaga/',
@@ -13,12 +13,13 @@ var test_links = {
     ]
 };
 
-var links = casper.environment.env === "live" ? test_links.live : test_links.dev_or_q;
+var links = casper.environment.env === "dev" ? test_links.dev : test_links.live_or_q;
     
 casper.start();
 casper.each(links, function(self, link) {
     self.thenOpen(this.environment.cmt + link, function() {
-        this.echo("Opened: " + this.getTitle(), "INFO");
+        this.echo("Opened: " + this.getCurrentUrl(), "INFO");
+        this.echo("Page Title: " + this.getTitle(), "INFO");
     });
 
     self.then(function(){
