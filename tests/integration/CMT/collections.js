@@ -12,6 +12,9 @@ var links = [
 var cmtpattern = new RegExp ('^'+casper.environment.cmt+'artists/');
 
 casper.start().each(links, function(self, link) {
+    self.then(function() {
+        self.echo("Attempting to open: " + this.environment.mtv + link, "INFO");
+    });
     self.thenOpen(this.environment.mtv + link, function() {
         this.echo(this.getTitle());
         // Test to make sure a CMT owned collection, when linked under mtv.com domain, 
