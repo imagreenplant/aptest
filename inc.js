@@ -116,6 +116,12 @@ function testSEOTagsForArtist(that, artist_object, type) {
             desc:  artist_object.caption,
             canonical: "http://www.mtv.com/artists/" + artist_object.alias + '/photos/' + artist_object.photo_id + "/"
         },
+        track_asset:{
+            title: artist_object.track + " " + artist_object.name + " from " + artist_object.album + " | " + artist_object.brand.toUpperCase(),
+            h1: artist_object.track,
+            desc:  artist_object.track + " by " + artist_object.name + " from " + artist_object.album + " - " + artist_object.description,
+            canonical: "http://www.mtv.com/artists/" + artist_object.alias + '/tracks/' + artist_object.id + "/"
+        },
         playlist_asset:{
             title: artist_object.playlist_name + " | " + artist_object.name + " | " + artist_object.brand.toUpperCase(),
             h1: artist_object.name + " " + artist_object.playlist_name,
