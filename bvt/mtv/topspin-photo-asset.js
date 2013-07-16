@@ -7,7 +7,7 @@ var test_data = {
 	mgid:"topspin:202"
 }
 
-casper.test.comment('BVT: MTV soundstream page.');
+casper.test.comment('BVT: MTV topspin photo asset page.');
 
 casper.start(casper.environment.mtv + 'artists/the-sawg/photos/topspin:202', function() {
     this.echo("Opening " + this.getCurrentUrl(), 'INFO');
