@@ -110,6 +110,12 @@ function testSEOTagsForArtist(that, artist_object, type) {
             desc: artist_object.name + " Music, Tour Dates, Photos, Videos, and official news updates directly from " + artist_object.name + "'s Twitter and Facebook.",
             canonical: "http://www.mtv.com/artists/" + artist_object.alias + '/'
         },
+        playlist_asset:{
+            title: artist_object.playlist_name + " | " + artist_object.name + " | " + artist_object.brand.toUpperCase(),
+            h1: artist_object.name + " " + artist_object.playlist_name,
+            desc:  artist_object.playlist_name + " - Music, Songs from " + artist_object.name,
+            canonical: "http://www.mtv.com/artists/" + artist_object.alias + '/playlist/' + artist_object.playlist_id + "/"
+        },
         topspin_photo_asset:{
             title: artist_object.photo_name + " from " + artist_object.name + " | " + artist_object.brand.toUpperCase(),
             h1: artist_object.photo_name,
