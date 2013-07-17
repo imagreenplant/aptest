@@ -110,6 +110,12 @@ function testSEOTagsForArtist(that, artist_object, type) {
             desc: artist_object.name + " Music, Tour Dates, Photos, Videos, and official news updates directly from " + artist_object.name + "'s Twitter and Facebook.",
             canonical: "http://www.mtv.com/artists/" + artist_object.alias + '/'
         },
+        similar:{
+            title: "Artists Like " + artist_object.name + " | Similar to " + artist_object.name + " | " + artist_object.brand.toUpperCase(),
+            h1: "Artists Like " + artist_object.name,
+            desc: "A complete list of similar artists to "+artist_object.name+" and other artists like "+artist_object.name+" on MTV.",
+            canonical: "http://www.mtv.com/artists/" + artist_object.alias + '/related-artists/?filter=influencedBy'
+        },
         influencers:{
             title: artist_object.name + " Music Influences | " + artist_object.brand.toUpperCase(),
             h1: artist_object.name + " Music Influences",
