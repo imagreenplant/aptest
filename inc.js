@@ -111,9 +111,15 @@ function testSEOTagsForArtist(that, artist_object, type) {
             canonical: "http://www.mtv.com/artists/" + artist_object.alias + '/'
         },
         influencers:{
-            title: artist_object.name + " Music Influences" + " | " + artist_object.brand.toUpperCase(),
+            title: artist_object.name + " Music Influences | " + artist_object.brand.toUpperCase(),
             h1: artist_object.name + " Music Influences",
             desc: artist_object.name + " Music Influences.",
+            canonical: "http://www.mtv.com/artists/" + artist_object.alias + '/related-artists/?filter=influencedBy'
+        },
+        followers:{
+            title: artist_object.name + " Followers | " + artist_object.brand.toUpperCase(),
+            h1: artist_object.name + " Followers",
+            desc: artist_object.name + " Followers on MTV.com",
             canonical: "http://www.mtv.com/artists/" + artist_object.alias + '/related-artists/?filter=influencedBy'
         },
         photo_asset:{
