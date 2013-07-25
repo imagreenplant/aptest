@@ -2,16 +2,18 @@ var base_domain = casper.environment.mtv;
 var test_url, h1_text, title_tag;
 
 
-if (casper.environment.env === "live") {
-    test_url =  '/artists/miguel/videos/81583/';
-    h1_text = 'Miguel Backstage by Miguel';
-    title_tag = 'Miguel Backstage by Miguel | MTV';
-}
-else {
+if (casper.environment.env === "dev") {
     test_url = '/artists/the-sawg/videos/253/';
     h1_text = 'Rbsp Launch 480p by The SAWG';
     title_tag = 'Rbsp Launch 480p by The SAWG | MTV';
 }
+else {
+    test_url =  '/artists/miguel/videos/81583/';
+    h1_text = 'Miguel Backstage by Miguel';
+    title_tag = 'Miguel Backstage by Miguel | MTV';
+}
+
+
 
 //Some artists had biographies set to null.  We should check for this, and remove the bio.  This test case tests that logic.
 //http://jira.mtvi.com/browse/MLAP-1837
