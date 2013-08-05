@@ -45,6 +45,7 @@ casper.on('resource.requested', function(resource) {
 
 casper.on("page.error", function(msg, trace) {
     this.test.fail("Javascript Error: " + msg);
+    this.echo("\n--------------ERROR TRACE-----------------\n" + JSON.stringify(trace, null, 4) + "\n------------------END-------------------\n");
 });
 
 casper.setDebugging();
