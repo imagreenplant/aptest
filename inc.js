@@ -107,7 +107,7 @@ function testSEOTagsForArtist(that, artist_object, type) {
         profile:{
             title: artist_object.name + " | New Music And Songs | " + artist_object.brand.toUpperCase(),
             h1: artist_object.name,
-            desc: artist_object.name + " Music, Tour Dates, Photos, Videos, and official news updates directly from " + artist_object.name + "'s Twitter and Facebook.",
+            desc: artist_object.name +" new music, concerts, photos, and official news updates directly from " + artist_object.name + "'s Twitter and Facebook.",
             canonical: "http://www.mtv.com/artists/" + artist_object.alias + '/'
         },
         similar:{
