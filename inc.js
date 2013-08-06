@@ -181,6 +181,19 @@ function testSEOTagsForArtist(that, artist_object, type) {
     }
 }
 
+/*****************************************************************
+Simple echo function to tell developers that testcases have been
+removed.  Optionally, a jira ticket can be given.
+******************************************************************/
 
+function notifyHiddenTests (that, jira) {
+    jira = typeof jira !== 'undefined' ? jira : '<No jira ticket specified>';
+    that.echo(
+        "**************************************************\n"+
+        "   Test cases have been hidden from this file.    \n"+
+        "   Please see " + jira + "\n"+
+        "**************************************************\n"
+    );
+}
 
 
