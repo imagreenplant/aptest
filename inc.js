@@ -171,7 +171,7 @@ function testSEOTagsForArtist(that, artist_object, type) {
     if (artist_object) {
         that.echo("Performing SEO test cases on " + that.getCurrentUrl(), 'INFO');
         that.test.assertTitle(tdata.title, "Title matches SEO document.");
-        that.test.assertEquals(that.fetchText('h1'), tdata.h1, "H1 matches SEO document.");
+        that.test.assertEquals(that.fetchText('h1').trim(), tdata.h1, "H1 matches SEO document.");
         that.test.assertEquals(that.getElementAttribute('meta[name=description]','content'), tdata.desc,
             'meta tag description matches SEO document.');
         that.test.assertEquals(
