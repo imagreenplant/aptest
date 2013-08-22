@@ -44,8 +44,13 @@ casper.on('resource.requested', function(resource) {
 });
 
 casper.on("page.error", function(msg, trace) {
-    this.test.fail("Javascript Error: " + msg);
-    this.echo("\n--------------ERROR TRACE-----------------\n" + JSON.stringify(trace, null, 4) + "\n------------------END-------------------\n");
+    if (this.getCurrentUrl().match(/\/artists\//gi)) {
+        this.test.fail("Javascript Error: " + msg);
+        this.echo("\n--------------ERROR TRACE-----------------\n" + JSON.stringify(trace, null, 4) + "\n------------------END-------------------\n");
+    }
+    else {
+        this.echo("Javascript errors found on " + this.getCurrentUrl());
+    }
 });
 
 casper.setDebugging();
