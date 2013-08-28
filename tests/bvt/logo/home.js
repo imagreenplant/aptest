@@ -1,6 +1,7 @@
 casper.test.comment('BVT: Logo home page.');
 
 casper.start(casper.environment.logo + 'artists/', function() {
+	this.echo("Loaded " + this.getCurrentUrl(), "COMMENT");
     this.test.assertTitle("Artists.Logo | Discover Music Artists and Bands | LOGO", 
         "Title is equal to Artists.Logo | Discover Music Artists and Bands | LOGO");
     this.test.assertEvalEquals(function() {
