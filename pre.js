@@ -35,8 +35,8 @@ casper.reporting = {
 // DEBUG Level 3 prints more data
 
 casper.on('resource.requested', function(resource) {
-    if (casper.DEBUG > 0) { 
-        this.echo("Reporting calls being checked: " + this.reporting.check_reporting_calls);
+    if (casper.DEBUG > 0 && this.reporting.check_reporting_calls) { 
+        this.echo("Reporting calls being checked!");
     }
     if (casper.reporting.check_reporting_calls === true) {
         casper.testReporting(resource, casper.reporting.check_reporting_calls);
