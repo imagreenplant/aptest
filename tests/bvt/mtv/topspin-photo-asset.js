@@ -15,6 +15,13 @@ casper.start(casper.environment.mtv + 'artists/the-sawg/photos/topspin:202', fun
     testSEOTagsForArtist(this, test_data , "topspin_photo_asset");
 });
 
-casper.run(function() {
-    this.test.done(5);
-});
+if (casper.environment.env !== "dev") {
+    // This should not be used on Dev/Q as the redirect was not setup on either.
+    casper.echo("This test file is not meant to be used with the Q or LIVE environments.", "INFO");
+    casper.test.done();
+}
+else {
+    casper.run(function() {
+        this.test.done();
+    });
+}
