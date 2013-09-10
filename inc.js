@@ -94,7 +94,7 @@ function testSEOTagsForArtist(that, artist_object, type) {
     var seo = {
         bio:{
             title: artist_object.name + " Bio | "+artist_object.name+" Career | " + artist_object.brand.toUpperCase(),
-            h1: artist_object.name + ' Biography',
+            h1: 'About ' + artist_object.name,
             desc: "Interesting wiki facts about "+artist_object.name+". Find out the latest biography details including "+artist_object.name+"'s personal life, family, and musical career.",
             canonical: environment + 'artists/' + artist_object.alias + '/biography/'
         },
