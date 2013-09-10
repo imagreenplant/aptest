@@ -190,4 +190,15 @@ function notifyHiddenTests (that, jira) {
     );
 }
 
-
+function dumpHeaders (resource) {
+    if ( resource.url.match(/^http:\/\/www.(mtv|vh1|cmt|logotv).*\/artists\//g) ) {
+        if (!resource.url.match(/createbrandcookie/g)) {
+            casper.echo("Loading: " + resource.url, "COMMENT");
+            for (key in resource.headers) {
+                if (resource.headers[key].name === "Referer") {
+                    casper.echo("Referrer: "+ resource.headers[key].value, "COMMENT");
+                }
+            }
+        }
+    }
+}
