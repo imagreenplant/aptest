@@ -112,7 +112,7 @@ function testSEOTagsForArtist(that, artist_object, type) {
         },
         influencers:{
             title: artist_object.name + " Music Influences | " + artist_object.brand.toUpperCase(),
-            h1: artist_object.name + " Music Influences",
+            h1: "Artist Influences for " + artist_object.name,
             desc: artist_object.name + " Music Influences.",
             canonical: "http://www.mtv.com/artists/" + artist_object.alias + '/related-artists/?filter=influencedBy'
         },
