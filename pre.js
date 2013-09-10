@@ -17,6 +17,12 @@ casper.setDebugging = function setDebugging() {
 	}
 };
 
+casper.setViewJSErrors = function setViewJSErrors() {
+    casper.viewJSErrors = true;
+    if (casper.cli.has("nojs")) {
+        casper.viewJSErrors = false;
+    }
+}
 //Helper to print out js objects when debugging
 casper.renderJSON = function renderJSON(what) {
     return this.echo(JSON.stringify(what, null, '  '));
@@ -26,7 +32,8 @@ casper.renderJSON = function renderJSON(what) {
 //reporting checks unless this is set to true within a testcase.
 
 casper.reporting = {
-    check_reporting_calls : false
+    check_reporting_calls : false,
+    check_headers_for_main : false
 };
 
 // In order to test reporting, the reporting object must be added
@@ -36,20 +43,25 @@ casper.reporting = {
 
 casper.on('resource.requested', function(resource) {
     if (casper.DEBUG > 0 && this.reporting.check_reporting_calls) { 
-        this.echo("Reporting calls being checked!");
-    }
-    if (casper.reporting.check_reporting_calls === true) {
+        // this.echo("Reporting calls being checked!");
         casper.testReporting(resource, casper.reporting.check_reporting_calls);
     }
+    if (casper.reporting.check_headers_for_main === true) {
+        // this.echo("Headers being dumped!");
+        dumpHeaders(resource);
+    }
+
 });
 
 casper.on("page.error", function(msg, trace) {
-    if (this.getCurrentUrl().match(/\/artists\//gi)) {
-        this.test.fail("Javascript Error: " + msg);
-        this.echo("\n--------------ERROR TRACE-----------------\n" + JSON.stringify(trace, null, 4) + "\n------------------END-------------------\n");
-    }
-    else {
-        this.echo("Javascript errors found on " + this.getCurrentUrl());
+    if (casper.viewJSErrors) {
+        if (this.getCurrentUrl().match(/\/artists\//gi)) {
+            this.test.fail("Javascript Error: " + msg);
+            this.echo("\n--------------ERROR TRACE-----------------\n" + JSON.stringify(trace, null, 4) + "\n------------------END-------------------\n");
+        }
+        else {
+            this.echo("Javascript errors found on " + this.getCurrentUrl());
+        }
     }
 });
 
