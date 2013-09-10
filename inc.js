@@ -118,7 +118,7 @@ function testSEOTagsForArtist(that, artist_object, type) {
         },
         followers:{
             title: artist_object.name + " Followers | " + artist_object.brand.toUpperCase(),
-            h1: artist_object.name + " Followers",
+            h1: "Artists Following " + artist_object.name,
             desc: artist_object.name + " Followers on MTV.com",
             canonical: "http://www.mtv.com/artists/" + artist_object.alias + '/related-artists/?filter=influencedBy'
         },
