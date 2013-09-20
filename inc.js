@@ -106,27 +106,27 @@ function testSEOTagsForArtist(that, artist_object, type) {
         },
         similar:{
             title: "Artists Like " + artist_object.name + " | Similar to " + artist_object.name + " | " + artist_object.brand.toUpperCase(),
-            h1: "Artists Like " + artist_object.name,
+            h1: "Artists Similar " + artist_object.name,
             desc: "A complete list of similar artists to "+artist_object.name+" and other artists like "+artist_object.name+" on MTV.",
-            canonical: "http://www.mtv.com/artists/" + artist_object.alias + '/related-artists/?filter=influencedBy'
+            canonical: environment + 'artists/' + artist_object.alias + '/related-artists/?filter=influencedBy'
         },
         influencers:{
             title: artist_object.name + " Music Influences | " + artist_object.brand.toUpperCase(),
             h1: "Artist Influences for " + artist_object.name,
             desc: artist_object.name + " Music Influences.",
-            canonical: "http://www.mtv.com/artists/" + artist_object.alias + '/related-artists/?filter=influencedBy'
+            canonical: environment + 'artists/' + artist_object.alias + '/related-artists/?filter=influencedBy'
         },
         followers:{
             title: artist_object.name + " Followers | " + artist_object.brand.toUpperCase(),
             h1: "Artists Following " + artist_object.name,
             desc: artist_object.name + " Followers on MTV.com",
-            canonical: "http://www.mtv.com/artists/" + artist_object.alias + '/related-artists/?filter=influencedBy'
+            canonical: environment + 'artists/' + artist_object.alias + '/related-artists/?filter=followers'
         },
         photo_asset:{
             title: artist_object.photo_name + " from " + artist_object.name + " | " + artist_object.brand.toUpperCase(),
             h1: artist_object.photo_name,
-            desc:  artist_object.caption,
-            canonical: "http://www.mtv.com/artists/" + artist_object.alias + '/photos/' + artist_object.photo_id + "/"
+            desc:  artist_object.caption + " ",
+            canonical: environment + 'artists/' + artist_object.alias + '/photos/' + artist_object.photo_id + "/"
         },
         ts_video_asset:{
             title: artist_object.video + " by " + artist_object.name + " | " + artist_object.brand.toUpperCase(),
@@ -138,19 +138,19 @@ function testSEOTagsForArtist(that, artist_object, type) {
             title: artist_object.track + " " + artist_object.name + " from " + artist_object.album + " | " + artist_object.brand.toUpperCase(),
             h1: artist_object.track,
             desc:  artist_object.track + " by " + artist_object.name + " from " + artist_object.album + " - " + artist_object.description,
-            canonical: "http://www.mtv.com/artists/" + artist_object.alias + '/tracks/' + artist_object.id + "/"
+            canonical: environment + 'artists/' + artist_object.alias + '/tracks/' + artist_object.id + "/"
         },
         playlist_asset:{
             title: artist_object.playlist_name + " | " + artist_object.name + " | " + artist_object.brand.toUpperCase(),
             h1: artist_object.name + " " + artist_object.playlist_name,
-            desc:  artist_object.playlist_name + " - Music, Songs from " + artist_object.name,
-            canonical: "http://www.mtv.com/artists/" + artist_object.alias + '/playlist/' + artist_object.photo_id + "/"
+            desc:  artist_object.playlist_name + "  - Music, Songs from " + artist_object.name,
+            canonical: environment + 'artists/' + artist_object.alias + '/playlist/' + artist_object.photo_id + "/"
         },
         topspin_photo_asset:{
             title: artist_object.photo_name + " from " + artist_object.name + " | " + artist_object.brand.toUpperCase(),
             h1: artist_object.photo_name,
             desc:  artist_object.caption,
-            canonical: "http://www.mtv.com/artists/" + artist_object.alias + '/photos/' + artist_object.mgid + "/"
+            canonical: environment + 'artists/' + artist_object.alias + '/photos/' + artist_object.mgid + "/"
         },
         soundstream:{
             title: artist_object.name + " Audio Song Clips, Music Samples | " + artist_object.brand.toUpperCase(),
