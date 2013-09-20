@@ -129,10 +129,10 @@ function testSEOTagsForArtist(that, artist_object, type) {
             canonical: "http://www.mtv.com/artists/" + artist_object.alias + '/photos/' + artist_object.photo_id + "/"
         },
         ts_video_asset:{
-            title: artist_object.video + " " + artist_object.name + " | " + artist_object.brand.toUpperCase(),
-            h1: artist_object.video,
-            desc:  artist_object.video + " " + artist_object.name + " - " + artist_object.description,
-            canonical: "http://www.mtv.com/artists/" + artist_object.alias + '/video/' + artist_object.id + "/"
+            title: artist_object.video + " by " + artist_object.name + " | " + artist_object.brand.toUpperCase(),
+            h1: artist_object.video + " by " + artist_object.name,
+            desc:  artist_object.video + " by " + artist_object.name,
+            canonical: environment + 'artists/' + artist_object.alias + '/videos/' + artist_object.id + "/"
         },
         track_asset:{
             title: artist_object.track + " " + artist_object.name + " from " + artist_object.album + " | " + artist_object.brand.toUpperCase(),
