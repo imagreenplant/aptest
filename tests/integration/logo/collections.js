@@ -1,5 +1,7 @@
 var links = [
-    'artists/collections/testing/896498/',
+    'artists/collections/newnownext/897251/',
+    'artists/collections/afterellen/897252/',
+    'artists/collections/rupauls-drag-race/897244/'
 ];
 
 //Tests for cmt domain, that the link was properly redirected.
