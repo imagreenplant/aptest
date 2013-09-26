@@ -144,7 +144,7 @@ function testSEOTagsForArtist(that, artist_object, type) {
             title: artist_object.playlist_name + " | " + artist_object.name + " | " + artist_object.brand.toUpperCase(),
             h1: artist_object.name + " " + artist_object.playlist_name,
             desc:  artist_object.playlist_name + "  - Music, Songs from " + artist_object.name,
-            canonical: environment + 'artists/' + artist_object.alias + '/playlist/' + artist_object.photo_id + "/"
+            canonical: environment + 'artists/' + artist_object.alias + '/playlist/' + artist_object.playlist_id + "/"
         },
         topspin_photo_asset:{
             title: artist_object.photo_name + " from " + artist_object.name + " | " + artist_object.brand.toUpperCase(),
