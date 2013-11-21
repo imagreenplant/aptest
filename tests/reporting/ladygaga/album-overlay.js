@@ -48,7 +48,7 @@ casper.then(function(){
 casper.then(function() {
     this.wait(2000, function() {
         this.test.comment("Opening album overlay", "COMMENT")
-        this.click('#profile_albums .carousel-item-link-layer a');
+        this.click('#profile_albums .carousel-item-link-layer div');
     });
 });
 casper.then(function() {
