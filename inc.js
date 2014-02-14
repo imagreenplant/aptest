@@ -106,9 +106,9 @@ function testSEOTagsForArtist(that, artist_object, type) {
         },
         similar:{
             title: "Artists Like " + artist_object.name + " | Similar to " + artist_object.name + " | " + artist_object.brand.toUpperCase(),
-            h1: "Artists Similar " + artist_object.name,
+            h1: "Artists Similar To " + artist_object.name,
             desc: "A complete list of similar artists to "+artist_object.name+" and other artists like "+artist_object.name+" on MTV.",
-            canonical: environment + 'artists/' + artist_object.alias + '/related-artists/?filter=influencedBy'
+            canonical: environment + 'artists/' + artist_object.alias + '/related-artists/?filter=similar'
         },
         influencers:{
             title: artist_object.name + " Music Influences | " + artist_object.brand.toUpperCase(),
@@ -141,7 +141,7 @@ function testSEOTagsForArtist(that, artist_object, type) {
             canonical: environment + 'artists/' + artist_object.alias + '/tracks/' + artist_object.id + "/"
         },
         playlist_asset:{
-            title: artist_object.playlist_name + " | " + artist_object.name + " | " + artist_object.brand.toUpperCase(),
+            title: artist_object.name + " " + artist_object.playlist_name + " | " + artist_object.brand.toUpperCase(),
             h1: artist_object.name + " " + artist_object.playlist_name,
             desc:  artist_object.playlist_name + "  - Music, Songs from " + artist_object.name,
             canonical: environment + 'artists/' + artist_object.alias + '/playlist/' + artist_object.playlist_id + "/"

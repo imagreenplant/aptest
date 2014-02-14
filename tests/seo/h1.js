@@ -16,14 +16,14 @@ var test_urls = [
     'artists/lady-gaga/tourdates/',
     'artists/collections/',
     'artists/ace-ventura/',
-    'artists/',
-    'artists/about/',
+    // 'artists/',    Removed per current spec
+    // 'artists/about/',  Removed per current spec
     'artists/opportunities/',
     'artists/popular/',
     'artists/emerging/',
-    'artists/collections/vh1-classic/896674/',
-    'artists/collections/weird-vibes/896328/',
-    'artists/collections/2013-cmt-music-awards/897012/',
+    // 'artists/collections/vh1-classic/896674/',   Removed per current spec
+    // 'artists/collections/weird-vibes/896328/',   Removed per current spec
+    // 'artists/collections/2013-cmt-music-awards/897012/',    Removed per current spec
     'artists/collections/artists-to-watch/896317/'    
     ];
 var links = [];

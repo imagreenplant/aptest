@@ -1,9 +1,9 @@
 casper.test.comment('BVT: bio page.');
 
-casper.start(casper.environment.mtv + 'artists/taylor-swift/biography/', function() {
+casper.start(casper.environment.mtv + 'artists/lady-gaga/biography/', function() {
     this.echo("Opening " + this.getCurrentUrl(), 'INFO');
     this.test.assertHttpStatus(200, 'Received 200 Status response');
-    testSEOTagsForArtist(this, {name:"Taylor Swift", alias:"taylor-swift", brand:"Mtv"}, "bio");
+    testSEOTagsForArtist(this, {name:"Lady Gaga", alias:"lady-gaga", brand:"MTV"}, "bio");
 });
 
 casper.run(function() {

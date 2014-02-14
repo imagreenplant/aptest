@@ -1,8 +1,8 @@
 casper.test.comment("BVT: MTV artist's interviews page.");
 
 casper.start(casper.environment.mtv + 'artists/lady-gaga/interviews/', function() {
-    this.test.assertTitle("Artist Platform | MTV", 
-        "Title is equal to Artist Platform | MTV");
+    this.test.assertTitle("MTV Artists | Discover Music Artists and Bands", 
+        "Title is equal to 'MTV Artists | Discover Music Artists and Bands'");
 });
 
 casper.run(function() {
