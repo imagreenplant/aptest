@@ -71,7 +71,7 @@ This function makes it easy to take a screenshot of the moment at
 which you call it.  You must pass in the casper object.
 ******************************************************************/
 
-//Optionally take Pictures
+//Optionally take Pictures during DEBUG
 function takePicture(cobject) {
     /**** Do you want to take screenshots.  Then put casper in debug mode ****/
     if (casper.logLevel === "debug") {
@@ -81,6 +81,38 @@ function takePicture(cobject) {
         casper.echo("**** Picture Taken ****  -> reporter" + casper.picture_count + ".png", "WARN");
         casper.picture_count++;
     }
+}
+
+function makeBetterFileName(name_string) {
+    var currentTime = new Date();
+    var month = currentTime.getMonth() + 1;
+    var day = currentTime.getDate();
+    var year = currentTime.getFullYear();
+    var timedata = year + "-" + month + "-" + day;
+
+    var arr = name_string.split("/");
+    var str;
+    var clean;
+    var map = Array.prototype.map;
+
+    if(name_string === "") {
+        return "home/" + timedata; 
+    }
+    else {
+        str = arr.slice(-5);
+        cleaned = map.call(str,function(substring) {
+            return substring.replace(/\W/g, '');
+        });
+        return cleaned.join("/") + "/" + timedata;
+    }
+}
+
+function takeScreenshot(cobject, name_string) {
+    file_name = makeBetterFileName(name_string);
+    casper.wait(2000,function() {
+        cobject.capture('reporter' + casper.picture_count + '.png');
+    });
+    casper.echo("**** Picture Taken ****  -> " + file_name + ".png", "DEBUG");
 }
 
 
@@ -188,6 +220,10 @@ function notifyHiddenTests (that, jira) {
         "   Please see " + jira + "\n"+
         "**************************************************\n"
     );
+}
+
+function testDualReporting(url, brand) {
+    casper.echo("Thesting dual reporting", "COMMENT");
 }
 
 function dumpHeaders (resource) {

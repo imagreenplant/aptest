@@ -8,7 +8,7 @@ casper.turnOffReporting = function turnOffReporting() {
     casper.reporting.omps = {};
 };
 
-casper.testReporting = function testReporting(resource, params) {
+casper.testReporting = function testReporting(resource, params, brand) {
     if (this.DEBUG > 2) { this.echo("DEBUG " + resource.url); }
 
     if ( isOmnitureURL(resource.url) ) {
@@ -16,6 +16,11 @@ casper.testReporting = function testReporting(resource, params) {
         if (this.DEBUG > 0) {
             this.echo("DEBUG " + resource.url, 'COMMENT');
         }
+        if ( arguments.length === 3 ) {
+            this.echo("Testing for dual reporting=============================>>>>>>>>>>", 'COMMENT');
+            testDualReporting(url, brand)    
+        }
+        
 
         // if (this.reporting.actions.hasOwnProperty(this.current_event)) {
         //     (this.DEBUG > 0) ? this.echo("Found property for "+this.current_event,"DEBUG") : 0;
