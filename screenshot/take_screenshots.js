@@ -7,68 +7,67 @@ var test_urls = {
                 'artists/popular/',
                 'artists/emerging/',
                 'artists/about/',
-    //             'artists/collections/',
-    //             'artists/downloads/',
-    //             'artists/asdfaskdjfasldkfjsldkfjsaldfkjadslkfj/', // 404 page
+                'artists/collections/',
+                'artists/downloads/',
+                'artists/asdfaskdjfasldkfjsldkfjsaldfkjadslkfj/', // 404 page
 
-    //             'artists/lady-gaga/',  //Claimed, no video intro
-    //             'artists/kate-nash/',  //Video intro
-    //             'artists/jami/',  //Artistlink only
+                'artists/lady-gaga/',  //Claimed, no video intro
+                'artists/kate-nash/',  //Video intro
+                'artists/jami/',  //Artistlink only
 
-    //             'artists/lady-gaga/updates/',
-    //             'artists/lady-gaga/video-interviews/',
-    //             'artists/lady-gaga/photos/',
-    //             'artists/lady-gaga/news/',
-    //             'artists/lady-gaga/discography/',
-    //             'artists/lady-gaga/tourdates/',
+                'artists/lady-gaga/updates/',
+                'artists/lady-gaga/video-interviews/',
+                'artists/lady-gaga/photos/',
+                'artists/lady-gaga/news/',
+                'artists/lady-gaga/discography/',
+                'artists/lady-gaga/tourdates/',
 
-    //             'artists/kate-nash/related-artists/?filter=similar',
-    //             'artists/kate-nash/related-artists/?filter=followers',
-    //             'artists/kate-nash/related-artists/?filter=influencedBy',
-    //             'artists/kate-nash/music/',
+                'artists/kate-nash/related-artists/?filter=similar',
+                'artists/kate-nash/related-artists/?filter=followers',
+                'artists/kate-nash/related-artists/?filter=influencedBy',
+                'artists/kate-nash/music/',
 
-    //             'artists/location/New+York+City%2C+NY/#from-lady-gaga',
-    //             'artists/genre/pop/#from-kate-nash',
-    //             'artists/startyear/2005/#from-kate-nash',
+                'artists/location/New+York+City%2C+NY/#from-lady-gaga',
+                'artists/genre/pop/#from-kate-nash',
+                'artists/startyear/2005/#from-kate-nash',
 
-    //             'artists/collections/weird-vibes/896328/',
+                'artists/collections/weird-vibes/896328/',
 
-    //             'artists/collections/artists-to-watch/896317/',
-    //             'artists/video-franchise/stop-watch/4245/'
-    //         // ],
-    // "vh1": [ 
-    //             'artists/',
-    //             'artists/collections/',
-    //             'artists/collections/vh1-classic/896674/',
-    //             'artists/collections/artists-to-watch/896317/'    
-    //         ],
-    // "cmt": [
-    //             'artists/blake-shelton/', 
-    //             'artists/blake-shelton/related-artists/?filter=similar',
-    //             'artists/blake-shelton/related-artists/?filter=followers',
-    //             'artists/blake-shelton/related-artists/?filter=influencedBy',
-    //             'artists/location/New+York+City%2C+NY/#from-blake-shelton',
-    //             'artists/genre/pop/#from-blake-shelton',
-    //             'artists/startyear/2005/#from-blake-shelton',
-    //             'artists/blake-shelton/music/',
-    //             'artists/blake-shelton/updates/',
-    //             'artists/blake-shelton/video-interviews/',
-    //             'artists/blake-shelton/photos/',
-    //             'artists/blake-shelton/news/',
-    //             'artists/blake-shelton/discography/',
-    //             'artists/blake-shelton/tourdates/',
-    //             'artists/collections/',
-    //             'artists/collections/2013-cmt-music-awards/897012/',
-    //             'artists/collections/artists-to-watch/896317/'    
-    //         ],
-    // "logo": [
-    //             'artists/',
-    //             'artists/collections/', 
-    //             'artists/collections/newnownext/897251/',
-    //         ],
-    // // "tr3s": [           
-                // '', 
-                // 'collections/???'     Need Tr3s collection for here   
+                'artists/collections/artists-to-watch/896317/',
+                'artists/video-franchise/stop-watch/4245/'
+            ],
+    "vh1": [ 
+                'artists/',
+                'artists/collections/',
+                'artists/collections/vh1-classic/896674/',
+                'artists/collections/artists-to-watch/896317/'    
+            ],
+    "cmt": [
+                'artists/blake-shelton/', 
+                'artists/blake-shelton/related-artists/?filter=similar',
+                'artists/blake-shelton/related-artists/?filter=followers',
+                'artists/blake-shelton/related-artists/?filter=influencedBy',
+                'artists/location/New+York+City%2C+NY/#from-blake-shelton',
+                'artists/genre/pop/#from-blake-shelton',
+                'artists/startyear/2005/#from-blake-shelton',
+                'artists/blake-shelton/music/',
+                'artists/blake-shelton/updates/',
+                'artists/blake-shelton/video-interviews/',
+                'artists/blake-shelton/photos/',
+                'artists/blake-shelton/news/',
+                'artists/blake-shelton/discography/',
+                'artists/blake-shelton/tourdates/',
+                'artists/collections/',
+                'artists/collections/2013-cmt-music-awards/897012/',
+                'artists/collections/artists-to-watch/896317/'    
+            ],
+    "logo": [
+                'artists/',
+                'artists/collections/', 
+                'artists/collections/newnownext/897251/',
+            ],
+    "tr3s": [           
+                'artists/',
             ]
 };
 
