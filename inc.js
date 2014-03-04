@@ -96,14 +96,15 @@ function makeBetterFileName(name_string) {
     var map = Array.prototype.map;
 
     if(name_string === "") {
-        return "home/" + timedata; 
+        return "home/"; 
+        // return "home/" + timedata;   Removed timedata 
     }
     else {
         str = arr.slice(-5);
         cleaned = map.call(str,function(substring) {
             return substring.replace(/\W/g, '');
         });
-        return cleaned.join("/") + "/" + timedata;
+        return cleaned.join("/") + "/";  // + timedata;
     }
 }
 
@@ -230,7 +231,7 @@ function dumpHeaders (resource) {
     if ( resource.url.match(/^http:\/\/www.(mtv|vh1|cmt|logotv).*\/artists\//g) ) {
         if (!resource.url.match(/createbrandcookie/g)) {
             casper.echo("Loading: " + resource.url, "COMMENT");
-            for (key in resource.headers) {
+            for (var key in resource.headers) {
                 if (resource.headers[key].name === "Referer") {
                     casper.echo("Referrer: "+ resource.headers[key].value, "COMMENT");
                 }

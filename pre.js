@@ -22,7 +22,7 @@ casper.setViewJSErrors = function setViewJSErrors() {
     if (casper.cli.has("nojs")) {
         casper.viewJSErrors = false;
     }
-}
+};
 //Helper to print out js objects when debugging
 casper.renderJSON = function renderJSON(what) {
     return this.echo(JSON.stringify(what, null, '  '));
